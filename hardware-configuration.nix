@@ -10,7 +10,9 @@
 
   boot.initrd.availableKernelModules = [ "xhci_hcd" "ahci" "usbhid" "usb_storage" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta
+                               config.boot.kernelPackages.v4l2loopback
+                             ];
 
   fileSystems."/" =
     { device = "/dev/sda4";
