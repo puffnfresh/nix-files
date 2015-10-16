@@ -13,27 +13,11 @@ not pick up the internal MMC disk. After a lot of research, I found
 that I needed the following kernel compile config set:
 
 ```
-CONFIG_GPIOLIB=y
 CONFIG_PINCTRL_BAYTRAIL=y
 CONFIG_X86_INTEL_LPSS=y
 ```
 
-NixOS has a script which answers y/m/n for each option when prompted
-by the Linux kernel's "make config" step:
-
-https://github.com/NixOS/nixpkgs/blob/master/pkgs/os-specific/linux/kernel/generate-config.pl
-
-Sadly it can't set arbitrary config it's not prompted for and for some
-reason pinctrl options were removed from being shown at all:
-
-https://github.com/torvalds/linux/commit/45f034ef205e5439a50d6f7e5f89add93131c0cc
-
-So I wrote a tiny patch to add it back in, see
-pinctrl-menu-option.patch for the line changed. There must be a better
-way of setting the CONFIG_PINCTRL_BAYTRAIL config.
-
-With a Nix expression which applies that patch and sets up the config,
-I created a bootable ISO:
+With a Nix expression which sets up the config, I created a bootable ISO:
 
 ```
 nix-build nixpkgs/nixos \

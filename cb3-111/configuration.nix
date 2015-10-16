@@ -13,19 +13,19 @@
   # boot.trace = true;
   # boot.debug1devices = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest // {
-    kernel = pkgs.linux_latest.override (drv: {
-      kernelPatches = [
-        { name = "pinctrl-menu-option";
-          patch = ./pinctrl-menu-option.patch; }
-      ] ++ drv.kernelPatches;
-      extraConfig = ''
-        GPIOLIB y
-        PINCTRL y
-        PINCTRL_BAYTRAIL y
-        X86_INTEL_LPSS y
-      '';
-    });
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      stdenv = pkgs.stdenv // {
+        platform = pkgs.stdenv.platform // {
+          kernelExtraConfig = ''
+            PINCTRL_BAYTRAIL y
+            X86_INTEL_LPSS y
+          '';
+        };
+      };
+    };
   };
 
   # Use the GRUB 2 boot loader.
