@@ -4,6 +4,15 @@ It's now possible to boot Linux on Baytrail Chromebooks!
 
 https://johnlewis.ie/custom-chromebook-firmware/rom-download/
 
+---
+
+The below changes were merged into unstable before 16.03 - if you
+download a [recent NixOS ISO](https://nixos.org/channels/nixos-unstable/)
+then you should be able to boot eMMC devices without any changes. This
+has been confirmed with a HP Stream 11.
+
+---
+
 I had a CB3-111 which I didn't use often and I wanted to use it for a
 media centre system. Of course I was going to use NixOS to do
 that. Turns out it wasn't as easy as I thought it would be.
