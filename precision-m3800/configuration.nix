@@ -4,6 +4,17 @@
 
 { config, pkgs, ... }:
 
+let
+  systemd-with-rules = pkgs: hwdb-rules:
+    let
+      hwdb-local = pkgs.writeText "70-local.hwdb" hwdb-rules;
+    in
+    pkgs.systemd.overrideDerivation (drv: {
+      preFixup = ''
+        ln -s ${hwdb-local} $out/lib/udev/hwdb.d/70-local.hwdb
+      '';
+    });
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -16,7 +27,9 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
-  boot.kernelPackages = pkgs.linuxPackages_4_1;
+  boot.kernelPackages = pkgs.linuxPackages_4_2;
+
+  hardware.opengl.driSupport32Bit = true;
 
   boot.initrd.luks.devices = [
     { name = "root"; device = "/dev/sda2"; preLVM = true; }
@@ -34,17 +47,16 @@
 
   time.timeZone = "Australia/Melbourne";
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "lat9w-16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
   # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    systemd = systemd-with-rules pkgs ''
+      # Microsoft Natural Ergonomic Keyboard 4000
+      keyboard:usb:v045Ep00DB*
+       KEYBOARD_KEY_c022d=pageup
+       KEYBOARD_KEY_c022e=pagedown
+    '';
+  };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     file
     gitFull
@@ -55,15 +67,9 @@
     haskellPackages.xmobar
   ];
 
-  # List services that you want to enable:
+  virtualisation.docker.enable = true;
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # hardware.nvidiaOptimus.disable = true;
 
   services.xserver = {
     enable = true;
@@ -77,25 +83,10 @@
     windowManager.xmonad.enableContribAndExtras = true;
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
-
   users.extraUsers.brian = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
   };
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   programs.zsh.enable = true;
