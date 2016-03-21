@@ -18,7 +18,7 @@ let
     runAsRoot = ''
       mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
       echo "hosts: files dns myhostname mymachines" > /etc/nsswitch.conf
-
+      ln -s /etc/ssl/certs/ca-bundle.crt /etc/ssl/certs/ca-certificates.crt
     '';
     fromImage = dockerTools.buildImage {
       name = "alpine";
