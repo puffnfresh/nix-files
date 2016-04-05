@@ -2,7 +2,7 @@ with import <nixpkgs> { };
 
 let
   hs = haskell.packages.lts-5_9;
-  hawk =
+  hawk = isExecutable:
     haskell.lib.dontCheck (hs.callPackage (
       { mkDerivation, base, bytestring, containers, directory, doctest
       , easy-file, exceptions, extra, filepath, haskell-src-exts, hint
@@ -19,8 +19,8 @@ let
           rev = "5d87ae32a2b58861bdd757832e90e67091256b13";
           sha256 = "0zihqqzj3nscsll19w36vkqfwnhi7h5pwq5bydgy9000q700ik45";
         };
-        isLibrary = true;
-        isExecutable = true;
+        isLibrary = !isExecutable;
+        inherit isExecutable;
         libraryHaskellDepends = [
           base bytestring containers stringsearch
         ];
@@ -39,9 +39,9 @@ let
         license = stdenv.lib.licenses.asl20;
       }
     ) { });
-  ghc = hs.ghcWithPackages (p: [ hawk ]);
+  ghc = hs.ghcWithPackages (p: [ (hawk false) ]);
 in
-haskell.lib.overrideCabal hawk (drv: {
+haskell.lib.overrideCabal (hawk true) (drv: {
   preConfigure = ''
     export HASKELL_PACKAGE_SANDBOXES="${ghc}/lib/ghc-${ghc.version}/package.conf.d"
   '';
