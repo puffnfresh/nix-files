@@ -26,7 +26,8 @@ let
       fromImage = dockerTools.pullImage {
         imageName = "alpine";
         imageTag = "3.3";
-        sha256 = "0jnwabyfgy3smf3r0hgz1hipjvjaka6asj6byc5acg7rnmx828xh";
+        imageId = "f58d61a874bedb7cdcb5a409ebb0c53b0656b880695c14e78a69902873358d5f";
+        sha256 = "0lvd5zxjgwp3jl5r8qgb2kapmxclpgdv1a7c03yiagxsil5gwb8c";
       };
     };
   };
