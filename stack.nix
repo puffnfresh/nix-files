@@ -1,11 +1,12 @@
-{ stdenv, makeWrapper, binutils, gcc, pkgconfig, haskell, stack
+{ stdenv, makeWrapper, binutils, gcc, pkgconfig, stack
+, ghc
 , ncurses, zlib
 , extraLibs ? [ ncurses zlib ]
 }:
 
 let
   bins = [
-    haskell.compiler.ghc7103
+    ghc
     binutils
     gcc
     pkgconfig
