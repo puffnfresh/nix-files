@@ -1,7 +1,7 @@
 { stdenv, makeWrapper, binutils, gcc, pkgconfig, stack
 , ghc
-, ncurses, zlib
-, extraLibs ? [ ncurses zlib ]
+, icu, ncurses, zlib
+, extraLibs ? [ icu ncurses zlib ]
 }:
 
 let
