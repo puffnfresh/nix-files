@@ -58,5 +58,5 @@ buildFHSUserEnv {
   extraBuildCommands = ''
     ln -s ${keybase-bin}/opt $out/opt
   '';
-  runScript = "bash";
+  runScript = "run_keybase";
 }
