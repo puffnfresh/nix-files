@@ -4,17 +4,6 @@
 
 { config, pkgs, ... }:
 
-let
-  systemd-with-rules = pkgs: hwdb-rules:
-    let
-      hwdb-local = pkgs.writeText "70-local.hwdb" hwdb-rules;
-    in
-    pkgs.systemd.overrideDerivation (drv: {
-      preFixup = ''
-        ln -s ${hwdb-local} $out/lib/udev/hwdb.d/70-local.hwdb
-      '';
-    });
-in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -27,35 +16,38 @@ in
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
-  boot.kernelPackages = pkgs.linuxPackages_4_2;
-
-  hardware.opengl.driSupport32Bit = true;
+  hardware = {
+    opengl.driSupport32Bit = true;
+    pulseaudio.enable = true;
+    pulseaudio.support32Bit = true;
+  };
 
   boot.initrd.luks.devices = [
     { name = "root"; device = "/dev/sda2"; preLVM = true; }
   ];
 
   networking.hostName = "bmckenna-m3800-nixos"; # Define your hostname.
+  networking.extraHosts = ''
+    127.0.0.1 bmckenna-m3800-nixos
+  '';
   networking.hostId = "10536eae";
   networking.wireless.enable = true;  # Enables wireless.
 
-  fonts.enableCoreFonts = true;
+  networking.firewall.allowedTCPPorts = [ 9696 3389 27036 27037 ];
+  networking.firewall.allowedUDPPorts = [ 27031 27036 ];
+  networking.firewall.allowPing = true;
+  networking.firewall.trustedInterfaces = [ "docker0" ];
 
-  sound.extraConfig = ''
-    defaults.pcm.!card 1
-  '';
+  fonts.enableCoreFonts = true;
 
   time.timeZone = "Australia/Melbourne";
 
-  # nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    systemd = systemd-with-rules pkgs ''
-      # Microsoft Natural Ergonomic Keyboard 4000
-      keyboard:usb:v045Ep00DB*
-       KEYBOARD_KEY_c022d=pageup
-       KEYBOARD_KEY_c022e=pagedown
-    '';
-  };
+  services.udev.extraHwdb = ''
+    # Microsoft Natural Ergonomic Keyboard 4000
+    keyboard:usb:v045Ep00DB*
+     KEYBOARD_KEY_c022d=pageup
+     KEYBOARD_KEY_c022e=pagedown
+  '';
 
   environment.systemPackages = with pkgs; [
     file
@@ -69,15 +61,30 @@ in
 
   virtualisation.docker.enable = true;
 
+  # nixpkgs.config.virtualbox.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+
+  services.syncthing = {
+    enable = true;
+    systemService = false;
+    useInotify = true;
+  };
   services.openssh.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ];
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  hardware.bumblebee.enable = true;
+  hardware.bumblebee.connectDisplay = true;
 
   services.xserver = {
     enable = true;
     xkbOptions = "ctrl:nocaps";
 
-    # videoDrivers = [ "intel" ];
-    # videoDrivers = [ "nouveau" ];
-    # videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" "vesa" ];
 
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
@@ -86,7 +93,7 @@ in
   users.extraUsers.brian = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "fuse" "vboxusers" ];
   };
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   programs.zsh.enable = true;
