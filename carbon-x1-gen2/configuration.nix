@@ -8,8 +8,8 @@
       <nixpkgs/nixos/modules/programs/command-not-found/command-not-found.nix>
     ];
 
-  boot.loader.gummiboot.enable = true;
-  boot.loader.gummiboot.timeout = 5;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.extraModprobeConfig = ''
@@ -20,11 +20,22 @@
 
   time.timeZone = "Australia/Melbourne";
 
+  security.audit.enable = false;
+
   fonts.enableCoreFonts = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel libvdpau-va-gl ];
   networking.hostName = "bmckenna-carbon-nixos";
   networking.hostId = "fd123ef8";
+  networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.allowedUDPPorts = [ 27036 21027 ];
+  networking.firewall.allowPing = true;
+
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
 
   virtualisation.docker.enable = true;
 
@@ -35,7 +46,11 @@
     which
     wget
 
+    gnome3.dconf
+    taffybar
+
     openconnect
+    sshfsFuse
   ];
 
   nixpkgs.config = {
@@ -43,20 +58,20 @@
   };
 
   services.openssh.enable = true;
+  services.upower.enable = true;
   services.thermald.enable = true;
 
   services.xserver = {
     enable = true;
 
-    vaapiDrivers = [ pkgs.vaapiIntel ];
+    autoRepeatDelay = 300;
+    autoRepeatInterval = 50;
 
-    desktopManager.gnome3.enable = true;
-
-    # displayManager.gdm.enable = true;
-    displayManager.desktopManagerHandlesLidAndPower = false;
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
-    # windowManager.xmonad.haskellPackages = pkgs.haskell.packages.ghc784;
+    windowManager.xmonad.extraPackages = (haskellPackages: [
+      haskellPackages.taffybar
+    ]);
 
     monitorSection = ''
       DisplaySize 338 190
@@ -77,12 +92,18 @@
     xkbOptions = "terminate:ctrl_alt_bksp, ctrl:nocaps";
   };
 
-  programs.ssh.agentTimeout = "12h";
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ];
+  };
 
   users.extraUsers.brian = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers" ];
   };
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   programs.zsh.enable = true;
