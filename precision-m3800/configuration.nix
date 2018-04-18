@@ -16,6 +16,8 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
+  boot.kernelParams = [ "pcie_port_pm=off" ];
+
   hardware = {
     opengl.driSupport32Bit = true;
     pulseaudio.enable = true;
@@ -33,14 +35,15 @@
   networking.hostId = "10536eae";
   networking.wireless.enable = true;  # Enables wireless.
 
-  networking.firewall.allowedTCPPorts = [ 9696 3389 27036 27037 ];
-  networking.firewall.allowedUDPPorts = [ 27031 27036 ];
+  networking.firewall.allowedTCPPorts = [ 9696 3389 27036 27037 8123 ];
+  networking.firewall.allowedUDPPorts = [ 27031 27036 21027 ];
   networking.firewall.allowPing = true;
   networking.firewall.trustedInterfaces = [ "docker0" ];
 
   fonts.enableCoreFonts = true;
+  fonts.fonts = [ pkgs.lato pkgs.libre-franklin ];
 
-  time.timeZone = "Australia/Melbourne";
+  time.timeZone = "Australia/Hobart";
 
   services.udev.extraHwdb = ''
     # Microsoft Natural Ergonomic Keyboard 4000
@@ -94,6 +97,12 @@
     isNormalUser = true;
     uid = 1000;
     extraGroups = [ "wheel" "docker" "fuse" "vboxusers" ];
+    openssh.authorizedKeys.keys = [
+      (builtins.readFile (builtins.fetchurl {
+        url = "https://github.com/puffnfresh.keys";
+        sha256 = "0gv8wpjxvb18fmvjvlg5ba9phqdhrmyl86qkkv8n7s7kq4dy12di";
+      }))
+    ];
   };
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   programs.zsh.enable = true;
