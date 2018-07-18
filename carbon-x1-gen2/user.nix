@@ -17,24 +17,26 @@ with import <nixpkgs> { };
     dtrx
     emacs
     evince
-    ghc
-    kitty
     gnupg1compat
     imagemagick
     inotify-tools
     jq
+    kdenlive
     keepassx
+    kitty
     libnotify
     lsof
     maim
     marp
     mplayer
+    nix-du
     oraclejdk
     pandoc
     pavucontrol
     psmisc
     pv
     rofi
+    rofi-pass
     silver-searcher
     sshuttle
     tmux
@@ -64,10 +66,14 @@ with import <nixpkgs> { };
     xmessage
     ;
 
+  ghc = pkgs.haskellPackages.ghcWithPackages (p: [ p.aeson p.network p.lens p.lens-aeson ]);
+
   set-brightness = writeShellScriptBin "set-brightness" ''
     echo "$(cat /sys/class/backlight/intel_backlight/max_brightness) / 100 * $1" | \
       ${bc}/bin/bc > /sys/class/backlight/intel_backlight/brightness
   '';
+
+  pass = pkgs.pass.withExtensions (p: [ p.pass-import ]);
 
   vscode = import ./vscode { inherit pkgs; };
 }
