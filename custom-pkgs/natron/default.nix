@@ -35,8 +35,8 @@ buildFHSUserEnv {
   multiPkgs = pkgs: [
     natron
 
-    pkgs.mesa_glu
-    pkgs.mesa_noglu.stubs
+    pkgs.libGL
+    pkgs.libGLU
     pkgs.xorg.libICE
     pkgs.xorg.libSM
     pkgs.xorg.libX11
