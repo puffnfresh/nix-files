@@ -4,7 +4,7 @@ with pkgs;
 
 let
   hie =
-    import (fetchTarball "https://github.com/puffnfresh/hie-nix/archive/6b1fd52e4946dc0d94c7892238d06be51a079d31.tar.gz") { inherit pkgs; };
+    import (fetchTarball "https://github.com/domenkozar/hie-nix/archive/7f322750f87768254a10cfd5d582e9ba961f2fa7.tar.gz") { inherit pkgs; };
   hieWrapper = writeShellScriptBin "hie" ''
     argv=( "$@" )
     exec nix-shell --pure --run "${hie.hie82}/bin/hie ''${argv[*]}"
