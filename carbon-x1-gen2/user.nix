@@ -10,6 +10,7 @@ with import <nixpkgs> { };
     atool
     autojump
     awscli
+    brightnessctl
     cabal-install
     cabal2nix
     chromium
@@ -67,11 +68,6 @@ with import <nixpkgs> { };
     ;
 
   ghc = pkgs.haskellPackages.ghcWithPackages (p: [ p.aeson p.network p.lens p.lens-aeson ]);
-
-  set-brightness = writeShellScriptBin "set-brightness" ''
-    echo "$(cat /sys/class/backlight/intel_backlight/max_brightness) / 100 * $1" | \
-      ${bc}/bin/bc > /sys/class/backlight/intel_backlight/brightness
-  '';
 
   pass = pkgs.pass.withExtensions (p: [ p.pass-import ]);
 
