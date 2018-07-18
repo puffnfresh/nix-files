@@ -75,6 +75,6 @@ with import <nixpkgs> { };
 
   pass = pkgs.pass.withExtensions (p: [ p.pass-import ]);
 
-  natron = pkgs.callPackage ./natron { };
+  natron = pkgs.callPackage ../custom-pkgs/natron { };
   vscode = import ./vscode { inherit pkgs; };
 }
