@@ -1,18 +1,18 @@
-{ stdenv, fetchurl, makeWrapper, xorg, glib, freetype, fontconfig }:
+{ stdenv, fetchurl, makeWrapper, xorg, glib, freetype, fontconfig, libGL }:
 
 let
   libPath =
     stdenv.lib.makeLibraryPath [
       stdenv.cc.cc xorg.libXext xorg.libX11 xorg.libxcb xorg.libICE xorg.libSM
-      xorg.libXi xorg.libXrender freetype glib fontconfig xorg.libXcomposite
+      xorg.libXi xorg.libXrender freetype glib fontconfig xorg.libXcomposite libGL
     ];
 in
 stdenv.mkDerivation rec {
   name = "calibre-${version}";
-  version = "2.73.0";
+  version = "3.28.0";
   src = fetchurl {
     url = "https://github.com/kovidgoyal/calibre/releases/download/v${version}/${name}-x86_64.txz";
-    sha256 = "036n7a8vd0naw276m0nwnr25i79r2p03wainrcsmfcvv3zd65p8n";
+    sha256 = "0bz58y5wwjrzj2rw352kcidc1axj3q4ybl4rjxzs5mylqds2yvwr";
   };
   buildInputs = [ makeWrapper ];
   phases = "installPhase fixupPhase";
