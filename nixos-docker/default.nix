@@ -16,7 +16,7 @@ let
       environment.etc.machine-id.text = "00000000000000000000000000000000";
     };
   eval =
-    import <nixos/lib/eval-config.nix> {
+    import <nixpkgs/nixos/lib/eval-config.nix> {
       modules = [
         minimalDocker
         systemConfig
