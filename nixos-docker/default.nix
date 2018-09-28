@@ -2,6 +2,7 @@
 
 # with import <nixpkgs> { };
 # callPackage <nixos-docker> {
+#   name = "example";
 #   systemConfig = {
 #     environment.systemPackages = [ gitFull ];
 #   };
