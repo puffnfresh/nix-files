@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../modules/media.nix
+      ../modules/users/brian.nix
     ];
 
   boot.loader.grub.enable = true;
@@ -21,31 +23,6 @@
 
   services.openssh.enable = true;
   # services.openssh.permitRootLogin = "yes";
-
-  networking.firewall.allowedTCPPorts = [ 8080 ];
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  services.xserver.enable = true;
-  services.xserver.desktopManager.kodi.enable = true;
-  services.xserver.displayManager.lightdm.autoLogin = {
-    enable = true;
-    user = "brian";
-  };
-
-  users.users.brian = {
-    isNormalUser = true;
-    uid = 1000;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      (builtins.readFile (builtins.fetchurl {
-        url = "https://github.com/puffnfresh.keys";
-        sha256 = "0gv8wpjxvb18fmvjvlg5ba9phqdhrmyl86qkkv8n7s7kq4dy12di";
-      }))
-    ];
-  };
 
   system.stateVersion = "18.09";
 
