@@ -17,3 +17,9 @@ Then you can build an Emacs with all of your packages:
 ```
 nix-build -E "with import <nixpkgs> { }; (callPackage ./spacemacs-with-layers.nix { }) (import ./$USER-layers.nix)"
 ```
+
+You need to change `~/.spacemacs` to make it not attempt deleting system packages:
+
+```elisp
+dotspacemacs-install-packages 'used-but-keep-unused
+```
