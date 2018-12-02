@@ -1,7 +1,9 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i "emacs --batch -l $HOME/.emacs.d/core/core-load-paths.el -l" -p emacs26-nox
+#! nix-shell -i "emacs --batch -l $HOME/.emacs.d/core/core-load-paths.el -l" -p "import ./spacemacs-bootstrap.nix"
 
-(defconst spacemacs-version "0.200.13")
+
+(load (concat spacemacs-core-directory "core-versions.el"))
+(require 'core-dumper)
 (require 'core-spacemacs)
 (spacemacs/init)
 
@@ -9,7 +11,7 @@
 (princ "ps:\n")
 (princ "[\n")
 (dolist (theme dotspacemacs-themes)
-  (let ((ps (spacemacs//get-theme-package theme)))
+  (let ((ps (spacemacs/get-theme-package-name theme)))
     (when ps
       (princ (concat "  ps." (prin1-to-string (symbol-name ps)) "\n")))))
 (princ "]\n")

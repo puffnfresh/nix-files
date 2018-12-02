@@ -7,13 +7,6 @@ let checked = n:
   in if p'.meta.broken or false then null else p';
 in
 {
-  "vim-powerline" = [
-    (checked "powerline")
-    (checked "vim-powerline")
-  ];
-  "evil-cleverparens" = [
-    (checked "evil-cleverparens")
-  ];
   "evil-snipe" = [
     (checked "evil-snipe")
     (checked "magit")
@@ -53,9 +46,11 @@ in
     (checked "darkokai-theme")
     (checked "darktooth-theme")
     (checked "django-theme")
+    (checked "doom-themes")
     (checked "dracula-theme")
     (checked "espresso-theme")
     (checked "exotica-theme")
+    (checked "eziam-theme")
     (checked "farmhouse-theme")
     (checked "flatland-theme")
     (checked "flatui-theme")
@@ -71,6 +66,7 @@ in
     (checked "ir-black-theme")
     (checked "jazz-theme")
     (checked "jbeans-theme")
+    (checked "kaolin-themes")
     (checked "light-soap-theme")
     (checked "lush-theme")
     (checked "madhat2r-theme")
@@ -133,24 +129,34 @@ in
     (checked "theming")
   ];
   "react" = [
+    (checked "add-node-modules-path")
     (checked "company")
-    (checked "company-tern")
     (checked "emmet-mode")
     (checked "evil-matchit")
     (checked "flycheck")
     (checked "js-doc")
+    (checked "lsp-javascript-typescript")
+    (checked "prettier-js")
+    (checked "rjsx-mode")
     (checked "smartparens")
     (checked "tern")
     (checked "web-beautify")
-    (checked "web-mode")
+    (checked "yasnippet")
   ];
   "ruby-on-rails" = [
     (checked "feature-mode")
     (checked "projectile-rails")
     (checked "which-key")
   ];
+  "emberjs" = [
+    (checked "ember-mode")
+    (checked "ember-yasnippets")
+  ];
   "django" = [
     (checked "pony-mode")
+  ];
+  "phoenix" = [
+    (checked "alchemist")
   ];
   "git" = [
     (checked "evil-magit")
@@ -158,13 +164,16 @@ in
     (checked "gitattributes-mode")
     (checked "gitconfig-mode")
     (checked "gitignore-mode")
+    (checked "gitignore-templates")
     (checked "git-commit")
     (checked "git-link")
     (checked "git-messenger")
     (checked "git-timemachine")
+    (checked "helm-git-grep")
     (checked "helm-gitignore")
     (checked "magit")
     (checked "magit-gitflow")
+    (checked "magit-svn")
     (checked "orgit")
     (checked "smeargle")
   ];
@@ -172,6 +181,8 @@ in
     (checked "p4")
   ];
   "version-control" = [
+    (checked "browse-at-remote")
+    (checked "vc")
     (checked "diff-mode")
     (checked "diff-hl")
     (checked "evil-unimpaired")
@@ -183,14 +194,15 @@ in
   ];
   "github" = [
     (checked "gist")
-    (checked "github-browse-file")
     (checked "github-clone")
     (checked "github-search")
     (checked "magit-gh-pulls")
+    (checked "magithub")
     (checked "spacemacs-github")
   ];
   "nixos" = [
     (checked "company")
+    (checked "flycheck")
     (checked "company-nixos-options")
     (checked "helm-nixos-options")
     (checked "nix-mode")
@@ -202,15 +214,19 @@ in
     (checked "launchctl")
     (checked "osx-dictionary")
     (checked "osx-trash")
-    (checked "pbcopy")
     (checked "reveal-in-osx-finder")
     (checked "term")
   ];
+  "copy-as-format" = [
+    (checked "copy-as-format")
+  ];
+  "parinfer" = [
+    (checked "parinfer")
+  ];
+  "multiple-cursors" = [
+    (checked "evil-mc")
+  ];
   "nlinum" = [
-    (checked "linum")
-    (checked "linum-relative")
-    (checked "nlinum")
-    (checked "nlinum-relative")
   ];
   "cscope" = [
     (checked "helm-cscope")
@@ -218,37 +234,94 @@ in
   ];
   "gtags" = [
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
   ];
-  "spacemacs-ui" = [
+  "spacemacs-navigation" = [
     (checked "ace-link")
-    (checked "centered-cursor")
-    (checked "desktop")
+    (checked "ace-window")
+    (checked "auto-highlight-symbol")
+    (checked "centered-cursor-mode")
+    (checked "compile")
     (checked "doc-view")
-    (checked "flx-ido")
+    (checked "golden-ratio")
+    (checked "grep")
     (checked "info+")
     (checked "open-junk-file")
     (checked "paradox")
     (checked "restart-emacs")
+    (checked "smooth-scrolling")
     (checked "winum")
+  ];
+  "spacemacs-defaults" = [
+    (checked "abbrev")
+    (checked "archive-mode")
+    (checked "bookmark")
+    (checked "conf-mode")
+    (checked "dired")
+    (checked "dired-x")
+    (checked "display-line-numbers")
+    (checked "electric-indent-mode")
+    (checked "ediff")
+    (checked "eldoc")
+    (checked "help-fns+")
+    (checked "hi-lock")
+    (checked "image-mode")
+    (checked "imenu")
+    (checked "linum")
+    (checked "occur-mode")
+    (checked "package-menu")
+    (checked "page-break-lines")
+    (checked "process-menu")
+    (checked "recentf")
+    (checked "savehist")
+    (checked "saveplace")
+    (checked "subword")
+    (checked "tar-mode")
+    (checked "uniquify")
+    (checked "url")
+    (checked "visual-line-mode")
+    (checked "whitespace")
+    (checked "winner")
+    (checked "zone")
+  ];
+  "spacemacs-visual" = [
+    (checked "ansi-colors")
+    (checked "desktop")
+    (checked "fill-column-indicator")
+    (checked "hl-todo")
+    (checked "popup")
+    (checked "popwin")
+    (checked "zoom-frm")
+  ];
+  "spacemacs-purpose" = [
+    (checked "eyebrowse")
+    (checked "helm-purpose")
+    (checked "ivy-purpose")
+    (checked "popwin")
+    (checked "spacemacs-purpose-popwin")
+    (checked "window-purpose")
   ];
   "spacemacs-evil" = [
     (checked "evil-anzu")
     (checked "evil-args")
+    (checked "evil-cleverparens")
     (checked "evil-ediff")
+    (checked "evil-escape")
     (checked "evil-exchange")
+    (checked "evil-goggles")
     (checked "evil-iedit-state")
     (checked "evil-indent-plus")
+    (checked "evil-lion")
     (checked "evil-lisp-state")
-    (checked "evil-mc")
     (checked "evil-nerd-commenter")
     (checked "evil-matchit")
     (checked "evil-numbers")
-    (checked "evil-search-highlight-persist")
     (checked "evil-surround")
     (checked "evil-tutor")
     (checked "evil-unimpaired")
     (checked "evil-visual-mark-mode")
+    (checked "evil-visualstar")
     (checked "hs-minor-mode")
     (checked "linum-relative")
     (checked "vi-tilde-fringe")
@@ -257,22 +330,13 @@ in
     (checked "dumb-jump")
     (checked "request")
   ];
-  "spacemacs-ui-visual" = [
-    (checked "ansi-colors")
-    (checked "fancy-battery")
-    (checked "fill-column-indicator")
-    (checked "golden-ratio")
-    (checked "hl-todo")
-    (checked "neotree")
-    (checked "popup")
-    (checked "popwin")
-    (checked "smooth-scrolling")
-    (checked "spaceline")
-    (checked "zoom-frm")
+  "spacemacs-project" = [
+    (checked "projectile")
   ];
   "spacemacs-completion" = [
     (checked "default-helm-config")
     (checked "default-ivy-config")
+    (checked "flx-ido")
     (checked "ido")
     (checked "ido-vertical-mode")
   ];
@@ -282,26 +346,37 @@ in
     (checked "ivy")
     (checked "persp-mode")
     (checked "spaceline")
-    (checked "swiper")
+    (checked "counsel-projectile")
   ];
   "spacemacs-editing-visual" = [
-    (checked "adaptive-wrap")
-    (checked "auto-highlight-symbol")
-    (checked "column-enforce-mode")
     (checked "hide-comnt")
+    (checked "hl-anything")
+    (checked "column-enforce-mode")
     (checked "highlight-indentation")
     (checked "highlight-numbers")
     (checked "highlight-parentheses")
-    (checked "hl-anything")
     (checked "indent-guide")
     (checked "rainbow-delimiters")
     (checked "volatile-highlights")
+    (checked "writeroom-mode")
+  ];
+  "spacemacs-modeline" = [
+    (checked "anzu")
+    (checked "doom-modeline")
+    (checked "fancy-battery")
+    (checked "font-lock+")
+    (checked "neotree")
+    (checked "spaceline")
+    (checked "spaceline-all-the-icons")
+    (checked "symon")
+    (checked "vim-powerline")
   ];
   "spacemacs-editing" = [
     (checked "aggressive-indent")
     (checked "avy")
     (checked "bracketed-paste")
     (checked "clean-aindent-mode")
+    (checked "editorconfig")
     (checked "eval-sexp-fu")
     (checked "expand-region")
     (checked "hexl")
@@ -310,8 +385,11 @@ in
     (checked "lorem-ipsum")
     (checked "move-text")
     (checked "origami")
+    (checked "password-generator")
+    (checked "pcre2el")
     (checked "smartparens")
     (checked "spacemacs-whitespace-cleanup")
+    (checked "string-inflection")
     (checked "undo-tree")
     (checked "uuidgen")
     (checked "ws-butler")
@@ -330,6 +408,7 @@ in
   ];
   "emoji" = [
     (checked "emoji-cheat-sheet-plus")
+    (checked "emojify")
     (checked "company-emoji")
   ];
   "selectric" = [
@@ -350,45 +429,8 @@ in
     (checked "floobits")
   ];
   "spacemacs-base" = [
-    (checked "abbrev")
-    (checked "ace-window")
-    (checked "archive-mode")
-    (checked "bookmark")
-    (checked "centered-buffer-mode")
-    (checked "conf-mode")
-    (checked "dired")
-    (checked "dired-x")
-    (checked "electric-indent-mode")
-    (checked "ediff")
-    (checked "eldoc")
-    (checked "evil-escape")
-    (checked "evil-evilified-state")
-    (checked "evil-visualstar")
-    (checked "exec-path-from-shell")
-    (checked "help-fns+")
-    (checked "hi-lock")
-    (checked "holy-mode")
-    (checked "hybrid-mode")
-    (checked "image-mode")
-    (checked "imenu")
-    (checked "linum")
-    (checked "occur-mode")
-    (checked "package-menu")
-    (checked "page-break-lines")
-    (checked "pcre2el")
-    (checked "process-menu")
-    (checked "projectile")
-    (checked "recentf")
-    (checked "savehist")
-    (checked "saveplace")
-    (checked "spacemacs-theme")
-    (checked "subword")
-    (checked "tar-mode")
-    (checked "uniquify")
-    (checked "url")
-    (checked "visual-line-mode")
-    (checked "whitespace")
-    (checked "winner")
+  ];
+  "spacemacs-docker" = [
   ];
   "spacemacs" = [
   ];
@@ -401,10 +443,12 @@ in
     (checked "hydra")
     (checked "use-package")
     (checked "which-key")
-  ];
-  "spotify" = [
-    (checked "spotify")
-    (checked "helm-spotify-plus")
+    (checked "dotenv-mode")
+    (checked "evil-evilified-state")
+    (checked "pcre2el")
+    (checked "holy-mode")
+    (checked "hybrid-mode")
+    (checked "spacemacs-theme")
   ];
   "wakatime" = [
     (checked "wakatime-mode")
@@ -412,17 +456,44 @@ in
   "search-engine" = [
     (checked "engine-mode")
   ];
+  "twitter" = [
+    (checked "twittering-mode")
+  ];
+  "evernote" = [
+    (checked "geeknote")
+  ];
+  "confluence" = [
+    (checked "confluence")
+    (checked "ox-confluence")
+  ];
+  "unicode-fonts" = [
+    (checked "unicode-fonts")
+    (checked "persistent-soft")
+  ];
+  "deft" = [
+    (checked "deft")
+  ];
   "elfeed" = [
     (checked "elfeed")
     (checked "elfeed-goodies")
     (checked "elfeed-org")
     (checked "elfeed-web")
   ];
-  "twitter" = [
-    (checked "twittering-mode")
+  "dash" = [
+    (checked "dash-at-point")
+    (checked "helm-dash")
+    (checked "counsel-dash")
+    (checked "zeal-at-point")
   ];
-  "evernote" = [
-    (checked "geeknote")
+  "speed-reading" = [
+    (checked "spray")
+    (checked "which-key")
+  ];
+  "epub" = [
+    (checked "nov")
+  ];
+  "pdf" = [
+    (checked "pdf-tools")
   ];
   "org" = [
     (checked "company")
@@ -431,11 +502,14 @@ in
     (checked "evil-org")
     (checked "evil-surround")
     (checked "gnuplot")
+    (checked "helm-org-rifle")
     (checked "htmlize")
-    (checked "mu4e")
     (checked "ob")
     (checked "org")
     (checked "org-agenda")
+    (checked "org-brain")
+    (checked "org-expiry")
+    (checked "org-journal")
     (checked "org-download")
     (checked "org-mime")
     (checked "org-pomodoro")
@@ -445,6 +519,8 @@ in
     (checked "ox-gfm")
     (checked "ox-reveal")
     (checked "persp-mode")
+    (checked "ox-hugo")
+    (checked "org-trello")
   ];
   "ibuffer" = [
     (checked "ibuffer")
@@ -466,18 +542,26 @@ in
     (checked "srefactor")
     (checked "stickyfunc-enhance")
   ];
+  "web-beautify" = [
+    (checked "web-beautify")
+  ];
   "chrome" = [
     (checked "edit-server")
     (checked "gmail-message-mode")
     (checked "flymd")
+    (checked "markdown-mode")
+  ];
+  "xclipboard" = [
+    (checked "spacemacs-xclipboard")
   ];
   "docker" = [
     (checked "docker")
     (checked "docker-tramp")
     (checked "dockerfile-mode")
   ];
-  "deft" = [
-    (checked "deft")
+  "tern" = [
+    (checked "company-tern")
+    (checked "tern")
   ];
   "vagrant" = [
     (checked "vagrant")
@@ -491,6 +575,7 @@ in
     (checked "theme-changer")
   ];
   "systemd" = [
+    (checked "flycheck")
     (checked "systemd")
   ];
   "ansible" = [
@@ -501,6 +586,9 @@ in
     (checked "jinja2-mode")
     (checked "yaml-mode")
   ];
+  "node" = [
+    (checked "add-node-modules-path")
+  ];
   "fasd" = [
     (checked "fasd")
   ];
@@ -509,21 +597,27 @@ in
   ];
   "ranger" = [
     (checked "dired")
+    (checked "golden-ratio")
     (checked "ranger")
+  ];
+  "transmission" = [
+    (checked "transmission")
   ];
   "nginx" = [
     (checked "nginx-mode")
-  ];
-  "dash" = [
-    (checked "zeal-at-point")
-    (checked "helm-dash")
-    (checked "counsel-dash")
   ];
   "pandoc" = [
     (checked "pandoc-mode")
     (checked "ox-pandoc")
   ];
+  "dap" = [
+    (checked "dap-mode")
+  ];
+  "debug" = [
+    (checked "realgud")
+  ];
   "terraform" = [
+    (checked "company-terraform")
     (checked "terraform-mode")
   ];
   "shell" = [
@@ -544,9 +638,6 @@ in
     (checked "xterm-color")
     (checked "vi-tilde-fringe")
   ];
-  "pdf-tools" = [
-    (checked "pdf-tools")
-  ];
   "salt" = [
     (checked "salt-mode")
     (checked "smartparens")
@@ -557,10 +648,6 @@ in
     (checked "eldoc")
     (checked "ycmd")
   ];
-  "speed-reading" = [
-    (checked "spray")
-    (checked "which-key")
-  ];
   "puppet" = [
     (checked "company")
     (checked "flycheck")
@@ -569,20 +656,46 @@ in
   "rebox" = [
     (checked "rebox2")
   ];
+  "sphinx" = [
+    (checked "rst")
+    (checked "rst-sphinx")
+  ];
   "prodigy" = [
     (checked "prodigy")
+  ];
+  "cmake" = [
+    (checked "cmake-ide")
+    (checked "cmake-mode")
+    (checked "company")
+    (checked "helm-ctest")
+  ];
+  "lsp" = [
+    (checked "lsp-mode")
+    (checked "lsp-ui")
+    (checked "lsp-imenu")
+    (checked "lsp-ui-imenu")
+    (checked "company-lsp")
+    (checked "flycheck-lsp")
   ];
   "finance" = [
     (checked "company")
     (checked "flycheck-ledger")
     (checked "ledger-mode")
+    (checked "evil-ledger")
+  ];
+  "pass" = [
+    (checked "ivy-pass")
+    (checked "helm-pass")
+    (checked "password-store")
   ];
   "imenu-list" = [
     (checked "golden-ratio")
     (checked "imenu-list")
   ];
+  "bm" = [
+    (checked "bm")
+  ];
   "restclient" = [
-    (checked "company")
     (checked "company-restclient")
     (checked "golden-ratio")
     (checked "ob-http")
@@ -599,20 +712,28 @@ in
     (checked "company")
     (checked "eldoc")
     (checked "flycheck")
+    (checked "ob-cfengine3")
+    (checked "org")
+  ];
+  "prettier" = [
+    (checked "prettier-js")
   ];
   "auto-completion" = [
+    (checked "auto-yasnippet")
     (checked "auto-complete")
     (checked "ac-ispell")
     (checked "company")
     (checked "company-quickhelp")
     (checked "company-statistics")
+    (checked "counsel")
     (checked "fuzzy")
     (checked "helm-company")
     (checked "helm-c-yasnippet")
     (checked "hippie-exp")
-    (checked "yasnippet")
-    (checked "auto-yasnippet")
+    (checked "ivy-yasnippet")
     (checked "smartparens")
+    (checked "yasnippet")
+    (checked "yasnippet-snippets")
   ];
   "ivy" = [
     (checked "auto-highlight-symbol")
@@ -625,9 +746,13 @@ in
     (checked "imenu")
     (checked "ivy")
     (checked "ivy-hydra")
+    (checked "ivy-rich")
     (checked "ivy-spacemacs-help")
+    (checked "ivy-xref")
+    (checked "org")
     (checked "persp-mode")
     (checked "projectile")
+    (checked "recentf")
     (checked "smex")
     (checked "swiper")
     (checked "wgrep")
@@ -647,10 +772,14 @@ in
     (checked "helm-themes")
     (checked "helm-spacemacs-help")
     (checked "helm-spacemacs-faq")
+    (checked "helm-xref")
     (checked "imenu")
     (checked "persp-mode")
     (checked "popwin")
     (checked "projectile")
+  ];
+  "templates" = [
+    (checked "yatemplate")
   ];
   "keyboard-layout" = [
     (checked "ace-window")
@@ -661,6 +790,7 @@ in
     (checked "evil")
     (checked "evil-escape")
     (checked "evil-evilified-state")
+    (checked "evil-magit")
     (checked "evil-surround")
     (checked "eyebrowse")
     (checked "flycheck")
@@ -684,30 +814,69 @@ in
     (checked "pangu-spacing")
     (checked "org")
     (checked "youdao-dictionary")
+    (checked "chinese-conv")
+  ];
+  "japanese" = [
+    (checked "evil-tutor-ja")
+    (checked "migemo")
+    (checked "avy-migemo")
+    (checked "ddskk")
+    (checked "japanese-holidays")
+    (checked "pangu-spacing")
+    (checked "org")
+  ];
+  "coq" = [
+    (checked "company-coq")
+    (checked "proof-general")
+    (checked "smartparens")
+    (checked "vi-tilde-fringe")
+  ];
+  "pact" = [
+    (checked "flycheck")
+    (checked "flycheck-pact")
+    (checked "pact-mode")
   ];
   "php" = [
-    (checked "company")
     (checked "drupal-mode")
     (checked "eldoc")
     (checked "flycheck")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "php-auto-yasnippets")
     (checked "php-extras")
     (checked "php-mode")
     (checked "phpcbf")
     (checked "phpunit")
+    (checked "company-php")
+  ];
+  "coffeescript" = [
+    (checked "add-node-modules-path")
+    (checked "coffee-mode")
+    (checked "company")
+    (checked "flycheck")
+    (checked "ob-coffeescript")
   ];
   "asm" = [
     (checked "asm-mode")
+    (checked "company")
     (checked "electric-indent-mode")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "nasm-mode")
     (checked "x86-lookup")
   ];
   "asciidoc" = [
     (checked "adoc-mode")
+  ];
+  "perl5" = [
+    (checked "company-plsense")
+    (checked "cperl-mode")
+    (checked "flycheck")
+    (checked "org")
+    (checked "realgud")
+    (checked "smartparens")
   ];
   "autohotkey" = [
     (checked "ahk-mode")
@@ -716,6 +885,26 @@ in
     (checked "org")
     (checked "plantuml-mode")
   ];
+  "hy" = [
+    (checked "company")
+    (checked "evil-cleverparens")
+    (checked "hy-mode")
+    (checked "ob-hy")
+    (checked "pyenv-mode")
+    (checked "pyvenv")
+    (checked "smartparens")
+  ];
+  "kotlin" = [
+    (checked "flycheck")
+    (checked "flycheck-kotlin")
+    (checked "ggtags")
+    (checked "helm-gtags")
+    (checked "kotlin-mode")
+  ];
+  "protobuf" = [
+    (checked "flycheck")
+    (checked "protobuf-mode")
+  ];
   "d" = [
     (checked "company")
     (checked "company-dcd")
@@ -723,7 +912,18 @@ in
     (checked "flycheck")
     (checked "flycheck-dmd-dub")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
+  ];
+  "crystal" = [
+    (checked "ameba")
+    (checked "company")
+    (checked "crystal-mode")
+    (checked "flycheck")
+    (checked "flycheck-crystal")
+    (checked "inf-crystal")
+    (checked "ob-crystal")
+    (checked "play-crystal")
   ];
   "idris" = [
     (checked "company")
@@ -736,8 +936,10 @@ in
     (checked "csharp-mode")
     (checked "evil-matchit")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "omnisharp")
+    (checked "flycheck")
   ];
   "elixir" = [
     (checked "alchemist")
@@ -747,10 +949,21 @@ in
     (checked "flycheck-mix")
     (checked "flycheck-credo")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "ob-elixir")
     (checked "popwin")
     (checked "smartparens")
+  ];
+  "json" = [
+    (checked "add-node-modules-path")
+    (checked "flycheck")
+    (checked "json-mode")
+    (checked "json-navigator")
+    (checked "json-reformat")
+    (checked "json-snatcher")
+    (checked "prettier-js")
+    (checked "web-beautify")
   ];
   "ess" = [
     (checked "ess")
@@ -762,19 +975,31 @@ in
   "go" = [
     (checked "company")
     (checked "company-go")
+    (checked "counsel-gtags")
     (checked "flycheck")
     (checked "flycheck-gometalinter")
+    (checked "flycheck-golangci-lint")
     (checked "ggtags")
     (checked "helm-gtags")
     (checked "go-eldoc")
-    (checked "go-mode")
+    (checked "go-fill-struct")
+    (checked "go-gen-test")
     (checked "go-guru")
+    (checked "go-impl")
+    (checked "go-mode")
     (checked "go-rename")
+    (checked "go-tag")
+    (checked "godoctor")
+    (checked "lsp-go")
+    (checked "popwin")
   ];
   "scala" = [
+    (checked "eldoc")
     (checked "ensime")
     (checked "flycheck")
+    (checked "flyspell")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "noflet")
     (checked "org")
@@ -784,6 +1009,7 @@ in
   "windows-scripts" = [
     (checked "dos")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "powershell")
   ];
@@ -796,23 +1022,33 @@ in
     (checked "flycheck")
     (checked "swift-mode")
   ];
-  "javascript" = [
-    (checked "coffee-mode")
+  "perl6" = [
     (checked "company")
-    (checked "company-tern")
+    (checked "evil")
+    (checked "flycheck")
+    (checked "flycheck-perl6")
+    (checked "perl6-mode")
+  ];
+  "javascript" = [
+    (checked "add-node-modules-path")
+    (checked "company")
+    (checked "counsel-gtags")
     (checked "evil-matchit")
     (checked "flycheck")
     (checked "ggtags")
     (checked "helm-gtags")
+    (checked "imenu")
+    (checked "impatient-mode")
     (checked "js-doc")
     (checked "js2-mode")
     (checked "js2-refactor")
-    (checked "json-mode")
-    (checked "json-snatcher")
+    (checked "livid-mode")
+    (checked "lsp-javascript-typescript")
+    (checked "org")
+    (checked "prettier-js")
+    (checked "skewer-mode")
     (checked "tern")
     (checked "web-beautify")
-    (checked "skewer-mode")
-    (checked "livid-mode")
   ];
   "purescript" = [
     (checked "company")
@@ -827,9 +1063,17 @@ in
     (checked "ob-sml")
     (checked "smartparens")
   ];
+  "semantic-web" = [
+    (checked "ttl-mode")
+    (checked "sparql-mode")
+    (checked "org")
+  ];
   "ocaml" = [
     (checked "company")
+    (checked "flycheck")
+    (checked "flycheck-ocaml")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "merlin")
     (checked "ocp-indent")
@@ -850,59 +1094,81 @@ in
     (checked "evil-matchit")
     (checked "flycheck")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "minitest")
+    (checked "org")
     (checked "popwin")
     (checked "rbenv")
     (checked "robe")
     (checked "rspec-mode")
     (checked "rubocop")
+    (checked "ruby-hash-syntax")
     (checked "ruby-mode")
+    (checked "ruby-refactor")
     (checked "ruby-test-mode")
     (checked "ruby-tools")
     (checked "rvm")
+    (checked "seeing-is-believing")
     (checked "smartparens")
     (checked "rake")
   ];
   "octave" = [
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "octave")
   ];
-  "shaders" = [
-    (checked "glsl-mode")
-    (checked "company")
-    (checked "company-glsl")
+  "major-modes" = [
+    (checked "arduino-mode")
+    (checked "ebuild-mode")
+    (checked "hoon-mode")
+    (checked "kivy-mode")
+    (checked "logcat")
+    (checked "matlab-mode")
+    (checked "pkgbuild-mode")
+    (checked "qml-mode")
+    (checked "scad-mode")
+    (checked "stan-mode")
+    (checked "thrift")
+    (checked "vala-mode")
+    (checked "vala-snippets")
+    (checked "wolfram-mode")
   ];
   "rust" = [
     (checked "cargo")
     (checked "company")
+    (checked "counsel-gtags")
     (checked "racer")
     (checked "flycheck")
     (checked "flycheck-rust")
     (checked "ggtags")
     (checked "helm-gtags")
     (checked "rust-mode")
+    (checked "smartparens")
     (checked "toml-mode")
+    (checked "lsp-rust")
   ];
   "erlang" = [
     (checked "company")
     (checked "erlang")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "flycheck")
   ];
   "latex" = [
     (checked "auctex")
     (checked "auctex-latexmk")
-    (checked "company")
     (checked "company-auctex")
     (checked "evil-matchit")
     (checked "reftex")
     (checked "flycheck")
     (checked "flyspell")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
+    (checked "magic-latex-buffer")
     (checked "smartparens")
     (checked "typo")
     (checked "yasnippet")
@@ -912,25 +1178,53 @@ in
     (checked "company")
     (checked "company-emacs-eclim")
     (checked "eclim")
+    (checked "eldoc")
+    (checked "ensime")
+    (checked "flycheck")
+    (checked "flycheck-eclim")
+    (checked "flyspell")
     (checked "ggtags")
+    (checked "gradle-mode")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "java-mode")
+    (checked "maven-test-mode")
+    (checked "meghanada")
+    (checked "mvn")
+    (checked "lsp-java")
+    (checked "org")
+  ];
+  "jsonnet" = [
+    (checked "jsonnet-mode")
+    (checked "flycheck")
   ];
   "typescript" = [
+    (checked "add-node-modules-path")
     (checked "company")
     (checked "eldoc")
     (checked "flycheck")
+    (checked "lsp-javascript-typescript")
+    (checked "smartparens")
     (checked "tide")
     (checked "typescript-mode")
     (checked "web-mode")
+    (checked "yasnippet")
+  ];
+  "factor" = [
+    (checked "factor-mode")
+    (checked "yasnippet")
   ];
   "scheme" = [
     (checked "company")
+    (checked "evil-cleverparens")
     (checked "geiser")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
+    (checked "parinfer")
   ];
   "html" = [
+    (checked "add-node-modules-path")
     (checked "company")
     (checked "company-web")
     (checked "css-mode")
@@ -938,8 +1232,11 @@ in
     (checked "evil-matchit")
     (checked "flycheck")
     (checked "haml-mode")
+    (checked "counsel-css")
     (checked "helm-css-scss")
+    (checked "impatient-mode")
     (checked "less-css-mode")
+    (checked "prettier-js")
     (checked "pug-mode")
     (checked "sass-mode")
     (checked "scss-mode")
@@ -948,11 +1245,11 @@ in
     (checked "tagedit")
     (checked "web-mode")
     (checked "yasnippet")
+    (checked "web-beautify")
   ];
   "python" = [
-    (checked "anaconda-mode")
     (checked "company")
-    (checked "company-anaconda")
+    (checked "counsel-gtags")
     (checked "cython-mode")
     (checked "eldoc")
     (checked "evil-matchit")
@@ -961,11 +1258,13 @@ in
     (checked "helm-cscope")
     (checked "helm-gtags")
     (checked "helm-pydoc")
-    (checked "hy-mode")
+    (checked "importmagic")
     (checked "live-py-mode")
     (checked "nose")
     (checked "org")
     (checked "pip-requirements")
+    (checked "pipenv")
+    (checked "pippel")
     (checked "py-isort")
     (checked "pyenv-mode")
     (checked "pylookup")
@@ -977,13 +1276,19 @@ in
     (checked "stickyfunc-enhance")
     (checked "xcscope")
     (checked "yapfify")
+    (checked "anaconda-mode")
+    (checked "company-anaconda")
+    (checked "lsp-python")
   ];
   "ipython-notebook" = [
+    (checked "company")
     (checked "ein")
+    (checked "ob-ipython")
   ];
   "fsharp" = [
     (checked "fsharp-mode")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
   ];
   "bibtex" = [
@@ -996,13 +1301,15 @@ in
     (checked "biblio-core")
   ];
   "shell-scripts" = [
-    (checked "company")
     (checked "company-shell")
     (checked "fish-mode")
     (checked "flycheck")
+    (checked "flycheck-bashate")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "insert-shebang")
+    (checked "org")
     (checked "sh-script")
   ];
   "emacs-lisp" = [
@@ -1014,21 +1321,34 @@ in
     (checked "elisp-slime-nav")
     (checked "emacs-lisp")
     (checked "evil")
+    (checked "evil-cleverparens")
+    (checked "eval-sexp-fu")
     (checked "flycheck")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "ielm")
     (checked "macrostep")
+    (checked "nameless")
+    (checked "overseer")
+    (checked "parinfer")
     (checked "semantic")
     (checked "smartparens")
     (checked "srefactor")
   ];
+  "jr" = [
+    (checked "jr-mode")
+  ];
   "common-lisp" = [
     (checked "auto-highlight-symbol")
     (checked "common-lisp-snippets")
+    (checked "evil")
+    (checked "evil-cleverparens")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm")
     (checked "helm-gtags")
+    (checked "parinfer")
     (checked "slime")
     (checked "slime-company")
   ];
@@ -1036,8 +1356,16 @@ in
     (checked "company")
     (checked "company-quickhelp")
     (checked "ggtags")
+    (checked "counsel-gtags")
+    (checked "evil-cleverparens")
     (checked "helm-gtags")
     (checked "racket-mode")
+  ];
+  "gpu" = [
+    (checked "company-glsl")
+    (checked "cuda-mode")
+    (checked "glsl-mode")
+    (checked "opencl-mode")
   ];
   "markdown" = [
     (checked "company")
@@ -1056,50 +1384,67 @@ in
     (checked "company-cabal")
     (checked "company-ghci")
     (checked "company-ghc")
+    (checked "ghc")
+    (checked "intero")
+    (checked "dante")
     (checked "flycheck")
     (checked "flycheck-haskell")
     (checked "ggtags")
-    (checked "ghc")
     (checked "haskell-mode")
     (checked "haskell-snippets")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "helm-hoogle")
     (checked "hindent")
     (checked "hlint-refactor")
-    (checked "intero")
+  ];
+  "restructuredtext" = [
+    (checked "auto-complete")
+    (checked "auto-complete-rst")
+    (checked "linum")
+    (checked "rst")
+    (checked "rst-directives")
+    (checked "rst-lists")
+    (checked "flyspell")
+    (checked "smartparens")
+    (checked "yasnippet")
   ];
   "c-c++" = [
     (checked "cc-mode")
-    (checked "disaster")
     (checked "clang-format")
-    (checked "cmake-mode")
     (checked "company")
     (checked "company-c-headers")
+    (checked "company-rtags")
     (checked "company-ycmd")
+    (checked "counsel-gtags")
+    (checked "disaster")
     (checked "flycheck")
+    (checked "flycheck-rtags")
     (checked "gdb-mi")
     (checked "ggtags")
+    (checked "google-c-style")
     (checked "helm-cscope")
     (checked "helm-gtags")
+    (checked "helm-rtags")
+    (checked "ivy-rtags")
+    (checked "org")
+    (checked "realgud")
+    (checked "rtags")
     (checked "semantic")
     (checked "srefactor")
     (checked "stickyfunc-enhance")
-    (checked "ycmd")
     (checked "xcscope")
-  ];
-  "extra-langs" = [
-    (checked "arduino-mode")
-    (checked "julia-mode")
-    (checked "matlab-mode")
-    (checked "qml-mode")
-    (checked "scad-mode")
-    (checked "stan-mode")
-    (checked "thrift")
+    (checked "ycmd")
+    (checked "cquery")
+    (checked "ccls")
+    (checked "projectile")
   ];
   "lua" = [
     (checked "company")
+    (checked "company-lua")
     (checked "flycheck")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "lua-mode")
   ];
@@ -1114,6 +1459,7 @@ in
   "elm" = [
     (checked "company")
     (checked "elm-mode")
+    (checked "elm-test-runner")
     (checked "flycheck")
     (checked "flycheck-elm")
     (checked "popwin")
@@ -1122,6 +1468,7 @@ in
   "vimscript" = [
     (checked "vimrc-mode")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
     (checked "dactyl-mode")
   ];
@@ -1131,23 +1478,47 @@ in
     (checked "yaml-mode")
   ];
   "sql" = [
+    (checked "company")
     (checked "sql")
     (checked "sql-indent")
+    (checked "sqlup-mode")
+  ];
+  "groovy" = [
+    (checked "company")
+    (checked "groovy-imports")
+    (checked "groovy-mode")
+    (checked "org")
   ];
   "clojure" = [
     (checked "cider")
     (checked "cider-eval-sexp-fu")
     (checked "clj-refactor")
+    (checked "clojure-cheatsheet")
     (checked "clojure-mode")
     (checked "clojure-snippets")
     (checked "company")
     (checked "eldoc")
+    (checked "evil-cleverparens")
     (checked "ggtags")
+    (checked "counsel-gtags")
     (checked "helm-gtags")
+    (checked "org")
+    (checked "parinfer")
     (checked "popwin")
+    (checked "sayid")
     (checked "smartparens")
     (checked "subword")
-    (checked "org")
+  ];
+  "julia" = [
+    (checked "julia-mode")
+    (checked "julia-repl")
+    (checked "lsp-julia")
+    (checked "flycheck")
+    (checked "company-lsp")
+    (checked "evil-surround")
+  ];
+  "forth" = [
+    (checked "forth-mode")
   ];
   "nim" = [
     (checked "company")
@@ -1168,6 +1539,7 @@ in
     (checked "erc-image")
     (checked "erc-sasl")
     (checked "erc-social-graph")
+    (checked "erc-terminal-notifier")
     (checked "erc-tex")
     (checked "erc-view-log")
     (checked "erc-yank")
@@ -1192,16 +1564,26 @@ in
     (checked "persp-mode")
     (checked "rcirc")
     (checked "rcirc-color")
+    (checked "rcirc-late-fix")
     (checked "rcirc-notify")
   ];
   "mu4e" = [
     (checked "mu4e")
     (checked "mu4e-alert")
     (checked "mu4e-maildirs-extension")
+    (checked "helm-mu")
     (checked "org")
+    (checked "persp-mode")
   ];
   "gnus" = [
     (checked "gnus")
+  ];
+  "notmuch" = [
+    (checked "counsel-notmuch")
+    (checked "helm-notmuch")
+    (checked "notmuch")
+    (checked "org")
+    (checked "persp-mode")
   ];
   "syntax-checking" = [
     (checked "flycheck")
@@ -1216,5 +1598,21 @@ in
     (checked "flyspell-correct-helm")
     (checked "flyspell-correct-popup")
     (checked "flyspell-popup")
+  ];
+  "neotree" = [
+    (checked "neotree")
+    (checked "winum")
+  ];
+  "treemacs" = [
+    (checked "golden-ratio")
+    (checked "treemacs")
+    (checked "treemacs-evil")
+    (checked "treemacs-projectile")
+    (checked "winum")
+  ];
+  "spotify" = [
+    (checked "spotify")
+    (checked "helm-spotify-plus")
+    (checked "counsel-spotify")
   ];
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i "emacs --batch -l $HOME/.emacs.d/core/core-load-paths.el -l" -p emacs26-nox
 
+(load (concat spacemacs-core-directory "core-versions.el"))
 (require 'core-configuration-layer)
 (configuration-layer/discover-layers)
 (configuration-layer/make-all-packages nil)
