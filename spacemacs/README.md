@@ -1,6 +1,6 @@
 # spacemacs2nix
 
-You can generate an attribute set of layers to packages via:
+You can regenerate the attribute set of layers to packages via:
 
 ```
 ./spacemacs2nix.el > all-spacemacs-packages.nix
@@ -15,7 +15,7 @@ And you can generate the transitive list of layers and themes your `~/.spacemacs
 
 Then you can build an Emacs with all of your packages:
 
-```
+```nix
 with import <nixpkgs> { };
 
 (callPackage ./spacemacs-with-packages.nix { }) {
