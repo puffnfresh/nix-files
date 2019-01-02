@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
 
       <nixpkgs/nixos/modules/programs/command-not-found/command-not-found.nix>
+
+      ../modules/vpn.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -33,6 +35,8 @@
   networking.firewall.allowedTCPPorts = [ 22000 ];
   networking.firewall.allowedUDPPorts = [ 27036 21027 ];
   networking.firewall.allowPing = true;
+
+  puffnfresh.vpn.ip = "10.100.0.3";
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
