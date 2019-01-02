@@ -10,6 +10,25 @@
       ../modules/vpn/client.nix
     ];
 
+  system.stateVersion = "18.03";
+
+  nix = {
+    binaryCaches = [
+      "https://cache.nixos.org/"
+      "https://nixcache.reflex-frp.org"
+      "http://hydra.qfpl.io"
+      "https://snack.cachix.org"
+    ];
+    trustedBinaryCaches = [ https://hydra.nixos.org ];
+    binaryCachePublicKeys = [
+      "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
+      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+      "qfpl.io:xME0cdnyFcOlMD1nwmn6VrkkGgDNLLpMXoMYl58bz5g="
+      "snack.cachix.org-1:yWpdDCWeJzVAQUSM1Ol0E3PCVbG4k2wRAsZ/b5L3huc="
+    ];
+    trustedUsers = [ "@wheel" ];
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 5;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -20,11 +39,12 @@
 
   boot.cleanTmpDir = true;
 
-  time.timeZone = "Australia/Melbourne";
+  time.timeZone = "Asia/Calcutta";
 
   security.audit.enable = false;
 
   fonts.enableCoreFonts = true;
+  fonts.fonts = [ pkgs.iosevka ];
 
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl ];
@@ -111,4 +131,5 @@
   };
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
   programs.zsh.enable = true;
+  programs.slock.enable = true;
 }
