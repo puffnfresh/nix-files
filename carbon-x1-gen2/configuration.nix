@@ -7,7 +7,7 @@
 
       <nixpkgs/nixos/modules/programs/command-not-found/command-not-found.nix>
 
-      ../modules/vpn.nix
+      ../modules/vpn/client.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
