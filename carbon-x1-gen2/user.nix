@@ -73,4 +73,6 @@ with import <nixpkgs> { };
 
   natron = pkgs.callPackage ../custom-pkgs/natron { };
   vscode = import ./vscode { inherit pkgs; };
+
+  firefox = pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { drmSupport = true; }) { };
 }
