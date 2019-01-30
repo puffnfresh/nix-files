@@ -16,6 +16,8 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/mmcblk0";
 
+  sound.enable = true;
+
   networking.hostName = "lightsussex";
   networking.wireless.enable = true;
 
