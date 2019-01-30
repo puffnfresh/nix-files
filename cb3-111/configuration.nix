@@ -5,7 +5,10 @@
     [
     ./hardware-configuration.nix
     ../modules/users/brian.nix
+    ../modules/vpn/client.nix
     ];
+
+  puffnfresh.vpn.ip = "10.0.100.5";
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
