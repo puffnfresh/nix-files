@@ -28,6 +28,8 @@ in
     #   It's for your own safety. You are advised to keep both, it's OK.
     #   Removing one is fine too, but removing both will break your install.)
 
+    htop
+
     # User-facing stuff that you really really want to have
     # vim  # or some other editor, e.g. nano or neovim
     mg
