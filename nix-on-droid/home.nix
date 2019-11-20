@@ -45,12 +45,14 @@ in
     which
     ghc
     tmux
+    netcat
+    socat
     #gnugrep
     #gnupg
     #gnused
     #gnutar
     #bzip2
-    #gzip
+    gzip
     #xz
     #zip
     #unzip
@@ -60,7 +62,8 @@ in
   home.sessionVariables = {
     LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     EDITOR = "mg";
-    PS1 = "$ ";
+    PS1 = "\\[\\e[32m\\]\\W\\[\\e[m\\]$ ";
+    DISPLAY = "127.0.0.1:0";
   };
 }
 
