@@ -64,30 +64,40 @@
 
   virtualisation.docker.enable = true;
 
-  # nixpkgs.config.virtualbox.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
   virtualisation.virtualbox.host.enable = true;
 
-  services.syncthing = {
-    enable = true;
-    systemService = false;
-    useInotify = true;
-  };
   services.openssh.enable = true;
+  programs.gnupg.agent.enable = true;
+  programs.ssh.startAgent = true;
+  services.gnome3.gnome-keyring.enable = true;
+
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplip ];
+    drivers = [ (pkgs.callPackage ./dcpj1100dw.nix { }) ];
   };
 
   nixpkgs.config.allowUnfree = true;
 
-  hardware.bumblebee.enable = true;
-  hardware.bumblebee.connectDisplay = true;
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:2:0:0";
+    offload.enable = true;
+  };
 
   services.xserver = {
     enable = true;
     xkbOptions = "ctrl:nocaps";
+    libinput = {
+      enable = true;
+      tapping = false;
+    };
 
-    videoDrivers = [ "intel" "vesa" ];
+    autoRepeatDelay = 300;
+    autoRepeatInterval = 20;
+
+    # videoDrivers = [ "intel" ];
+    videoDrivers = [ "nvidia" ];
 
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
