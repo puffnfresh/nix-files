@@ -2,7 +2,7 @@
   users.users.brian = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "dialout" ];
     openssh.authorizedKeys.keys = [
       (builtins.readFile (builtins.fetchurl {
         url = "https://github.com/puffnfresh.keys";

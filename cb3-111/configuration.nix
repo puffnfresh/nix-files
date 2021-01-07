@@ -1,44 +1,39 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
 { config, pkgs, ... }:
 
 {
   imports =
-    [
-    ./hardware-configuration.nix
-    ../modules/users/brian.nix
-    ../modules/vpn/client.nix
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ../modules/users/brian.nix
     ];
 
-  puffnfresh.vpn.ip = "10.100.0.5";
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  networking.hostName = "lightsussex"; # Define your hostname.
+  networking.wireless.enable = false;
+  networking.networkmanager.enable = true;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/mmcblk0";
+  users.groups.networkmanager.members = [ "brian" ];
 
-  sound.enable = true;
+  programs.sway.enable = true;
 
-  networking.hostName = "lightsussex";
-  networking.wireless.enable = true;
-
+  # Set your time zone.
   time.timeZone = "Australia/Hobart";
 
-  nixpkgs.config.allowUnfree = true;
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
 
-  services.openssh.enable = true;
-
-  services.xserver = {
-    enable = true;
-    synaptics.enable = true;
-    desktopManager.mate.enable = true;
-  };
-
-  users.extraUsers.kylie = {
-    isNormalUser = true;
-    uid = 1001;
-  };
-
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.nixos.stateVersion = "16.03";
-
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "20.09"; # Did you read the comment?
 }
