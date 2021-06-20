@@ -1,9 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  screenshot = pkgs.writeShellScript "screenshot.sh" ''
-    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy
-  '';
   secrets = import ./secrets.nix;
 in
 {
@@ -12,22 +9,20 @@ in
   programs.jq.enable = true;
   programs.tmux.enable = true;
   programs.vscode.enable = true;
-
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
-      { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; }
-    ];
-  };
+  programs.firefox.enable = true;
+  programs.mako.enable = true;
 
   programs.kitty = {
     enable = true;
-    settings.term = "xterm-256color";
+    settings = {
+      term = "xterm-256color";
+      close_on_child_death = "yes";
+    };
   };
 
   programs.ssh = {
     enable = true;
+    serverAliveInterval = 120;
     matchBlocks = {
       atlassian = {
         hostname = "192.168.1.165";
@@ -40,7 +35,7 @@ in
   programs.git = {
     enable = true;
     userName = "Brian McKenna";
-    userEmail = "brian@brianmckenna.org";
+    userEmail = "bmckenna@atlassian.com";
   };
 
   programs.password-store = {
@@ -59,7 +54,7 @@ in
         }
         {
           block = "net";
-          device = "eth0";
+          device = "enp59s0u2u4";
         }
         {
           block = "weather";
@@ -90,6 +85,11 @@ in
         modifier = "Mod4";
         focus.mouseWarping = false;
         window.border = 5;
+        startup = [
+          {
+            command = "exec mako";
+          }
+        ];
         colors.focused = {
           border = "#FF0000";
           background = "#285577";
@@ -99,7 +99,7 @@ in
         };
         keybindings = lib.mkOptionDefault {
           "${sway.config.modifier}+Ctrl+p" = "exec ${./scripts/wofi-pass.sh}";
-          "${sway.config.modifier}+Shift+g" = "exec ${screenshot}";
+          "${sway.config.modifier}+Shift+g" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
         };
         bars = [
           {
@@ -113,11 +113,11 @@ in
             scale = "3";
             pos = "0 600";
           };
-          "DP-3" = {
+          "DP-4" = {
             transform = "270";
             pos = "1280 0";
           };
-          "DP-1" = {
+          "DP-5" = {
             transform = "90";
           };
         };
@@ -125,6 +125,7 @@ in
           "type:keyboard" = {
             repeat_delay = "250";
             repeat_rate = "50";
+            xkb_options = "ctrl:nocaps";
           };
         };
       };
@@ -137,34 +138,17 @@ in
   home.packages = [
     pkgs.home-manager
 
+    pkgs.file
     pkgs.silver-searcher
     pkgs.slack
     pkgs.spotify
     pkgs.wofi
+    pkgs.killall
 
     (pkgs.callPackage ./openconnect-atlassian { })
 
     (pkgs.scream-receivers.override { pulseSupport = true; })
 
-    (pkgs.looking-glass-client.overrideAttrs (attrs: {
-      version = "ae36abb";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "gnif";
-        repo = "LookingGlass";
-        rev = "ae36abb1ca3a645ac816667d6290121ac641cb01";
-        sha256 = "1cgcnvs7kbqcn3sczl09js58q7y9lmq4w61wh2zq3s8p30144f9s";
-        fetchSubmodules = true;
-      };
-
-      buildInputs = attrs.buildInputs ++ [
-        pkgs.wayland-protocols
-        pkgs.xorg.libXScrnSaver
-        pkgs.xorg.libXinerama
-        pkgs.xorg.libXi
-      ];
-
-      NIX_CFLAGS_COMPILE = "-mavx";
-    }))
+    pkgs.looking-glass-client
   ];
 }
