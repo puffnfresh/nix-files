@@ -78,7 +78,7 @@
   time.timeZone = "Australia/Hobart";
 
   services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.settings.PermitRootLogin = "yes";
 
   networking.firewall.enable = false;
   services.connman.enable = true;
