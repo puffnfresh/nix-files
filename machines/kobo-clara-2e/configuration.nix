@@ -5,12 +5,6 @@
     (import <mobile-nixos/lib/configuration.nix> { device = "kobo-clara-2e"; })
   ];
 
-  nix.settings = {
-    trusted-substituters = [ "https://cache.tectonic.brianmckenna.org/" ];
-    trusted-public-keys = [ "cache.tectonic.brianmckenna.org-1:JJgVJfP+41bQvmahw1MW8hIWkPTsaX2T+19rY5eOXPk=" ];
-    trusted-users = [ "@wheel" ];
-  };
-
   nixpkgs.overlays = [ (self: super: {
     xorg = super.xorg.overrideScope (self': super': {
       xorgserver = super'.xorgserver.overrideAttrs (attrs: {
@@ -71,12 +65,15 @@
   services.journald.extraConfig = "Storage=volatile";
 
   nix.settings = {
-   substituters = [
+    substituters = [
+      "https://cache.tectonic.brianmckenna.org/"
       "http://cache.armv7l.xyz"
     ];
     trusted-public-keys = [
       "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk="
+      "cache.tectonic.brianmckenna.org-1:JJgVJfP+41bQvmahw1MW8hIWkPTsaX2T+19rY5eOXPk="
     ];
+    trusted-users = [ "@wheel" ];
   };
 
   time.timeZone = "Australia/Hobart";
