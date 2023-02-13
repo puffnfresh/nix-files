@@ -32,6 +32,12 @@
   networking.interfaces.usb0.useDHCP = true;
   networking.nameservers = [ "1.1.1.1" ];
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+    HandlePowerKeyLongPress=poweroff
+    IdleAction=suspend
+  '';
+
   services.xserver = {
     enable = true;
     dpi = 256;
