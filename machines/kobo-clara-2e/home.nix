@@ -36,7 +36,6 @@
 
   home.packages = [
     pkgs.fira-mono
-    pkgs.foliate
     pkgs.mg
     pkgs.brightnessctl
   ];
