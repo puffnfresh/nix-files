@@ -1,11 +1,6 @@
 { pkgs, config, lib, ... }:
 
 {
-  imports = [
-    (import <mobile-nixos/lib/configuration.nix> { device = "kobo-clara-2e"; })
-    <home-manager/nixos>
-  ];
-
   home-manager.users.brian = import ./home.nix;
 
   nixpkgs.overlays = [ (self: super: {

@@ -1,0 +1,82 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1676367705,
+        "narHash": "sha256-un5UbRat9TwruyImtwUGcKF823rCEp4fQxnsaLFL7CM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "da72e6fc6b7dc0c3f94edbd310aae7cd95c678b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "mobile-nixos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675397203,
+        "narHash": "sha256-ooFkzSC1vg9VdC8iuT5LrUYCYWPAVaMTWSEJLsLpOeQ=",
+        "owner": "puffnfresh",
+        "repo": "mobile-nixos",
+        "rev": "7445ee32e377961ac729b5be05a556a9d9458db6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "puffnfresh",
+        "ref": "hydra",
+        "repo": "mobile-nixos",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1676591006,
+        "narHash": "sha256-pOIGhMOZuo3DRqhV0UIpJuRzVpw5RGrn/+DCov/d4T8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e95204260063aa90718a94eaccac3591a5c64469",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "mobile-nixos": "mobile-nixos",
+        "nixpkgs": "nixpkgs"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
