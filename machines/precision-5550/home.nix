@@ -9,8 +9,25 @@ in
   programs.jq.enable = true;
   programs.tmux.enable = true;
   programs.vscode.enable = true;
-  programs.firefox.enable = true;
   programs.mako.enable = true;
+
+  programs.chromium = {
+    enable = true;
+    package = pkgs.runCommand "chromium" {
+      buildInputs = [ pkgs.makeWrapper ];
+    } ''
+      mkdir -p $out/bin
+      cp -r ${pkgs.chromium}/share $out/
+      makeWrapper ${pkgs.chromium}/bin/chromium $out/bin/chromium \
+        --set LIBVA_DRIVER_NAME "iHD" \
+        --add-flags "--enable-features=VaapiVideoDecoder,VaapiVideoEncoder"
+    '';
+    extensions = [
+      { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; }
+      { id = "cfhdojbkjhnklbpkdaibdccddilifddb"; }
+      { id = "bcjindcccaagfpapjjmafapmmgkkhgoa"; }
+    ];
+  };
 
   programs.kitty = {
     enable = true;
@@ -23,11 +40,25 @@ in
   programs.ssh = {
     enable = true;
     serverAliveInterval = 120;
-    matchBlocks = {
+    matchBlocks = rec {
       atlassian = {
         hostname = "192.168.1.165";
         user = "brian";
         forwardAgent = true;
+      };
+      atlassian_home = atlassian // {
+        proxyJump = "home";
+      };
+      personal = {
+        hostname = "192.168.1.166";
+        user = "brian";
+        forwardAgent = true;
+      };
+      home = {
+        hostname = "home.brianmckenna.org";
+        user = "brian";
+        forwardAgent = true;
+        port = 7233;
       };
     };
   };
@@ -76,15 +107,31 @@ in
     };
   };
 
+  home.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.gnome.adwaita-icon-theme;
+    size = 32;
+  };
+
   wayland.windowManager = rec {
     sway = {
       enable = true;
       systemdIntegration = false;
+      xwayland = true;
+      extraConfig = "include /etc/sway/config.d/*";
       config = {
         terminal = "kitty";
         modifier = "Mod4";
         focus.mouseWarping = false;
-        window.border = 5;
+        window = {
+          border = 5;
+          commands = [
+            {
+              criteria.title = "zoom";
+              command = "floating enable";
+            }
+          ];
+        };
         startup = [
           {
             command = "exec mako";
@@ -100,26 +147,31 @@ in
         keybindings = lib.mkOptionDefault {
           "${sway.config.modifier}+Ctrl+p" = "exec ${./scripts/wofi-pass.sh}";
           "${sway.config.modifier}+Shift+g" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+          "Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+          "${sway.config.modifier}+d" = "exec ${pkgs.nwg-launchers}/bin/nwggrid";
         };
         bars = [
           {
-            fonts = [ "sans-serif 10" ];
+            fonts = {
+              names = [ "sans-serif" ];
+              size = 12.0;
+            };
             position = "top";
             statusCommand = "i3status-rs ${config.xdg.configHome}/i3status-rust/config-tepid.toml";
           }
         ];
         output = {
-          "eDP-1" = {
-            scale = "3";
-            pos = "0 600";
-          };
-          "DP-4" = {
-            transform = "270";
-            pos = "1280 0";
-          };
-          "DP-5" = {
-            transform = "90";
-          };
+          # "eDP-1" = {
+          #   scale = "3";
+          #   pos = "0 600";
+          # };
+          # "DP-4" = {
+          #   transform = "270";
+          #   pos = "1280 0";
+          # };
+          # "DP-5" = {
+          #   transform = "90";
+          # };
         };
         input = {
           "type:keyboard" = {
@@ -138,17 +190,31 @@ in
   home.packages = [
     pkgs.home-manager
 
+    pkgs.btop
+    pkgs.dtrx
     pkgs.file
     pkgs.silver-searcher
     pkgs.slack
     pkgs.spotify
+    pkgs.mg
     pkgs.wofi
     pkgs.killall
+    pkgs.element-desktop
+    pkgs.pavucontrol
+    pkgs.thunderbird
+    pkgs.wdisplays
+    pkgs.xdg-utils
+
+    pkgs.zoom-us
 
     (pkgs.callPackage ./openconnect-atlassian { })
 
-    (pkgs.scream-receivers.override { pulseSupport = true; })
+    (pkgs.scream.override { pulseSupport = true; })
 
     pkgs.looking-glass-client
   ];
+
+  home.username = "bmckenna";
+  home.homeDirectory = "/home/bmckenna";
+  home.stateVersion = "22.05";
 }
