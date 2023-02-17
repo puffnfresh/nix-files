@@ -24,8 +24,6 @@
     options 8188fu rtw_ips_mode=0
   '';
 
-  boot.extraModulePackages = [ (config.boot.kernelPackages.callPackage ./rtl8188fu.nix { }) ];
-
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
   boot.consoleLogLevel = lib.mkDefault 7;
