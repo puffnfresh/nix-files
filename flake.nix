@@ -15,7 +15,7 @@
 
   outputs = { self, nixpkgs, mobile-nixos, home-manager }:
     {
-      kobo-clara-2e =
+      hydraJobs.kobo-clara-2e =
         (nixpkgs.lib.nixosSystem {
           system = "armv7l-linux";
           modules = [
