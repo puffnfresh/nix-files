@@ -35,8 +35,8 @@
       };
 
       hydraJobs = {
-        kobo-clara-2e = nixosConfigurations.termly.config.system.build.toplevel;
-        anbernic-rg552 = nixosConfigurations.tenacious.config.system.build.toplevel;
+        kobo-clara-2e.armv7l-linux = nixosConfigurations.termly.config.system.build.toplevel;
+        anbernic-rg552.aarch64-linux = nixosConfigurations.tenacious.config.system.build.toplevel;
       };
     };
 }
