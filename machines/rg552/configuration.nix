@@ -171,6 +171,10 @@
           sha256 = "sha256-cKJ7HbAG+dg3Tkfiyb8vGhEhp6X2h6ktswXoPXPMg/E=";
         };
       }
+      {
+        name = "singleadcjoy-defer-probe";
+        patch = ./singleadcjoy-defer-probe.patch;
+      }
     ];
 
   networking.networkmanager = {

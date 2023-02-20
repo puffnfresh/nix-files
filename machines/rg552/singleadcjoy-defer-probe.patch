@@ -1,0 +1,15 @@
+diff --git a/drivers/input/joystick/singleadcjoy.c b/drivers/input/joystick/singleadcjoy.c
+index 28ca4e5457d5..95cac2edcdd6 100644
+--- a/drivers/input/joystick/singleadcjoy.c
++++ b/drivers/input/joystick/singleadcjoy.c
+@@ -848,6 +848,10 @@ static int joypad_amux_setup(struct device *dev, struct joypad *joypad)
+ 	}
+ 	amux = joypad->amux;
+ 	amux->iio_ch = devm_iio_channel_get(dev, "amux_adc");
++
++	if (PTR_ERR(amux->iio_ch) == -EPROBE_DEFER)
++		return -EPROBE_DEFER;
++
+ 	if (IS_ERR(amux->iio_ch)) {
+ 		dev_err(dev, "iio channel get error\n");
+ 		return -EINVAL;
