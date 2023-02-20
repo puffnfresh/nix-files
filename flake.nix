@@ -14,25 +14,29 @@
   };
 
   outputs = { self, nixpkgs, mobile-nixos, home-manager }:
-    {
-      hydraJobs = {
-        kobo-clara-2e =
-          (nixpkgs.lib.nixosSystem {
+    rec {
+      nixosConfigurations = {
+        termly =
+          nixpkgs.lib.nixosSystem {
             system = "armv7l-linux";
             modules = [
               ./machines/kobo-clara-2e/configuration.nix
               (import "${mobile-nixos}/lib/configuration.nix" { device = "kobo-clara-2e"; })
               home-manager.nixosModules.home-manager
             ];
-          }).config.system.build.toplevel;
-
-        anbernic-rg552 =
-          (nixpkgs.lib.nixosSystem {
+          };
+        tenacious =
+          nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
               ./machines/rg552/configuration.nix
             ];
-          }).config.system.build.toplevel;
+          };
+      };
+
+      hydraJobs = {
+        kobo-clara-2e = nixosConfigurations.termly.config.system.build.toplevel;
+        anbernic-rg552 = nixosConfigurations.tenacious.config.system.build.toplevel;
       };
     };
 }
