@@ -262,4 +262,6 @@
   };
 
   services.journald.extraConfig = "Storage=volatile";
+
+  system.stateVersion = "23.05";
 }
