@@ -32,11 +32,24 @@
               ./machines/rg552/configuration.nix
             ];
           };
+        tectonic =
+          nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules = [
+              ./machines/tectonic/configuration.nix
+            ];
+          };
       };
 
-      hydraJobs = {
-        kobo-clara-2e = nixosConfigurations.termly.config.system.build.toplevel;
-        anbernic-rg552 = nixosConfigurations.tenacious.config.system.build.toplevel;
-      };
+      hydraJobs =
+        let
+          toplevel =
+            name: nixosConfigurations."${name}".config.system.build.toplevel;
+        in
+        {
+          kobo-clara-2e = toplevel "termly";
+          anbernic-rg552 = toplevel "tenacious";
+          oci-compute-instance = toplevel "tectonic";
+        };
     };
 }
