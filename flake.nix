@@ -2,14 +2,10 @@
   description = "puffnfresh's personal Nix Flake, mainly for Hydra";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     mobile-nixos = {
       url = "github:puffnfresh/mobile-nixos/hydra";
       flake = false;
-    };
-    jovian-nixos = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -17,7 +13,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, mobile-nixos, home-manager, jovian-nixos }:
+  outputs = { self, nixpkgs, mobile-nixos, home-manager }:
     rec {
       nixosConfigurations = {
         termly =
@@ -41,14 +37,6 @@
             system = "aarch64-linux";
             modules = [
               ./machines/tectonic/configuration.nix
-            ];
-          };
-        teas =
-          nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              jovian-nixos.nixosModules.default
-              ./machines/steam-deck/configuration.nix
             ];
           };
       };

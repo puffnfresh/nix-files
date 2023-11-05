@@ -11,6 +11,10 @@
     desktopSession = "gnome-wayland";
   };
 
+  hardware.opengl.extraPackages = [
+    pkgs.rocm-opencl-icd
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -73,6 +77,7 @@
       pkgs.autojump
       pkgs.btop
       pkgs.chromium
+      pkgs.discord
       pkgs.element-desktop
       pkgs.gitMinimal
       pkgs.pass
@@ -80,6 +85,8 @@
       pkgs.steam
       pkgs.thunderbird
       pkgs.tmux
+      pkgs.microsoft-edge
+      pkgs.yuzu-early-access
       (pkgs.vscode-with-extensions.override {
         vscodeExtensions = [
           pkgs.vscode-extensions.arrterian.nix-env-selector
