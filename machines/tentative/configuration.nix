@@ -98,6 +98,7 @@
     isNormalUser = true;
     uid = 1000;
     extraGroups = [ "wheel" "libvirtd" ];
+    openssh.authorizedKeys.keys = [ (builtins.readFile ../../modules/users/brian.pub) ];
   };
 
 }
