@@ -21,11 +21,11 @@
       "locked": {
         "narHash": "sha256-GmfwNPhWH6sIfs9wSjQAqw6YzvF0EQwcTnTQ0l1VDPc=",
         "type": "file",
-        "url": "https://github.com/puffnfresh.keys"
+        "url": "https://github.com/puffnfresh.keys?narHash=sha256-GmfwNPhWH6sIfs9wSjQAqw6YzvF0EQwcTnTQ0l1VDPc%3D"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/puffnfresh.keys"
+        "url": "https://github.com/puffnfresh.keys?narHash=sha256-GmfwNPhWH6sIfs9wSjQAqw6YzvF0EQwcTnTQ0l1VDPc%3D"
       }
     },
     "root": {

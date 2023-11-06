@@ -3,8 +3,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     puffnfresh-keys = {
-      url = "https://github.com/puffnfresh.keys";
       flake = false;
+      type = "file";
+      url = "https://github.com/puffnfresh.keys?narHash=sha256-GmfwNPhWH6sIfs9wSjQAqw6YzvF0EQwcTnTQ0l1VDPc%3D";
     };
   };
 
