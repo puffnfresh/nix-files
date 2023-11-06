@@ -92,18 +92,12 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.03"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
   users.users.brian = {
     isNormalUser = true;
     uid = 1000;
     extraGroups = [ "wheel" "libvirtd" ];
-    openssh.authorizedKeys.keys = [
-      (builtins.readFile (builtins.fetchurl {
-        url = "https://github.com/puffnfresh.keys";
-        sha256 = "0gv8wpjxvb18fmvjvlg5ba9phqdhrmyl86qkkv8n7s7kq4dy12di";
-      }))
-    ];
   };
 
 }

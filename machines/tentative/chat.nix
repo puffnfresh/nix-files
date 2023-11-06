@@ -25,7 +25,6 @@
         };
         services.postgresql = {
           enable = true;
-          package = pkgs.postgresql_11;
           initialScript = pkgs.writeText "synapse-init.sql" ''
             CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
             CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
@@ -35,7 +34,7 @@
           '';
         };
         networking.nameservers = [ "192.168.100.10" ];
-        system.stateVersion = "20.03";
+        system.stateVersion = "23.11";
       };
     privateNetwork = true;
     hostAddress = "192.168.100.10";

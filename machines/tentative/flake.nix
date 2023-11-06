@@ -1,9 +1,14 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    puffnfresh-keys = {
+      url = "https://github.com/puffnfresh.keys";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, puffnfresh-keys }:
     rec {
       nixosConfigurations = {
         tentative =
@@ -11,6 +16,9 @@
             system = "x86_64-linux";
             modules = [
               ./configuration.nix
+              {
+                users.users.brian.openssh.authorizedKeys.keys = [ (builtins.readFile puffnfresh-keys) ];
+              }
             ];
           };
       };
