@@ -8,12 +8,20 @@
     enable = true;
     autoStart = true;
     user = "brian";
-    desktopSession = "gnome-wayland";
+    desktopSession = "gnome";
+  };
+  programs.steam = {
+    enable = true;
+    package = pkgs.steam.override {
+      extraEnv.LD_PRELOAD = "${pkgs.pkgsi686Linux.callPackage ../../packages/extest { }}/lib/libextest.so";
+    };
+    # https://github.com/NixOS/nixpkgs/pull/269881
+    # extest.enable = true;
   };
 
-  hardware.opengl.extraPackages = [
-    pkgs.rocm-opencl-icd
-  ];
+  # hardware.opengl.extraPackages = [
+  #   pkgs.rocm-opencl-icd
+  # ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -71,18 +79,18 @@
   users.users.brian = {
     isNormalUser = true;
     description = "Brian McKenna";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
     shell = pkgs.zsh;
     packages = [
       pkgs.autojump
       pkgs.btop
       pkgs.chromium
+      pkgs.microsoft-edge
       pkgs.discord
       pkgs.element-desktop
       pkgs.gitMinimal
       pkgs.pass
       pkgs.silver-searcher
-      pkgs.steam
       pkgs.thunderbird
       pkgs.tmux
       pkgs.microsoft-edge
