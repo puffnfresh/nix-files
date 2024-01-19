@@ -4,13 +4,13 @@
 }:
 
 let
-  flake = src:
+  flake = src: dir:
     (import flake-compat {
-      inherit src;
+      inherit src dir;
       nodeOverrides = {
-        nixpkgs = flake nixpkgs;
-        jovian-nixos = flake jovian-nixos;
+        nixpkgs = flake nixpkgs "";
+        jovian-nixos = flake jovian-nixos "";
       };
     }).defaultNix;
 in
-(flake ./.).outputs.hydraJobs
+(flake ../.. "machines/steam-deck").outputs.hydraJobs
