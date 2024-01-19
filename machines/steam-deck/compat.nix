@@ -17,4 +17,4 @@ let
       };
     }).defaultNix;
 in
-(flake ./.).outputs.hydraJobs.steam-deck
+(flake ./.).outputs.hydraJobs
