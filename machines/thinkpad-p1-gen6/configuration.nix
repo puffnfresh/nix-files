@@ -1,0 +1,96 @@
+{ config, lib, pkgs, ... }:
+
+{
+  imports =
+    [ ./hardware-configuration.nix
+    ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.registry = {
+    nixpkgs.to = {
+      type = "path";
+      path = pkgs.path;
+    };
+  };
+
+  # boot.kernelModules = [
+  #   "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd"
+  # ];
+  # boot.kernelParams = [
+  #   "intel_iommu=on"
+  #   "iommu=pt"
+
+  #   # "vfio-pci.ids=10de:25bc,10de:2291" # RTX A1000
+  #   # "vfio-pci.ids=10de:13c2,10de:0fbb" # GTX 970
+  # ];
+
+  networking.wireguard.interfaces.atlwg0 = {
+    ips = [ "192.168.56.1/24" ];
+    listenPort = 51820;
+    privateKeyFile = "/home/bmckenna/code/atlassian/anyconnect-to-wireguard-scripts/keys/wg-private-key";
+    peers = [
+      {
+        publicKey = "IdDPqFqFYzWiYUWAj17wBjUaDuEY5X5+ToQm4JvKlwk=";
+        allowedIPs = [ "192.168.56.2/32" ];
+        endpoint = "192.168.122.2:51820";
+      }
+    ];
+  };
+
+  nixpkgs.config.allowUnfree = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.modesetting.enable = true;
+  # services.xserver.videoDrivers = [ "amdgpu" ];
+
+  networking.hostName = "thoughtless";
+  networking.hostId = "29cfe4a5";
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Australia/Hobart";
+
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      ovmf.packages = [ (pkgs.OVMF.override {
+        tpmSupport = true;
+        secureBoot = true;
+        fdSize4MB = true;
+      }).fd ];
+      swtpm.enable = true;
+    };
+  };
+  programs.virt-manager.enable = true;
+
+  programs.nix-ld.enable = true;
+
+  users.users.bmckenna = {
+    uid = 1000;
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "libvirtd"
+    ];
+    shell = pkgs.zsh; # config.home-manager.users.bmckenna.programs.zsh.package;
+  };
+
+  services.hardware.bolt.enable = true;
+  programs.hyprland.enable = true; # adds things to xdg.portal
+  services.dbus.packages = [ pkgs.gcr ];
+  services.udisks2.enable = true;
+  programs.zsh.enable = true;
+  services.openssh.enable = true;
+
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [ 51820 ];
+
+  system.stateVersion = "23.11";
+}
