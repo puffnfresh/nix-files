@@ -14,7 +14,7 @@ let
         jovian-nixos = flake jovian-nixos "";
         home-manager = flake home-manager "";
       };
-    }).defaultNix;
+    }).result;
   hydraJobs = name:
     (flake ../. "machines/${name}").outputs.hydraJobs;
 in
