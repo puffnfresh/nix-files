@@ -33,7 +33,11 @@
               LC_CTYPE = "C";
           '';
         };
-        networking.nameservers = [ "192.168.100.10" ];
+        networking = {
+          # resolvconf.enable = true;
+          nameservers = [ "208.67.220.220" "8.8.4.4" ];
+          useHostResolvConf = false;
+        };
         system.stateVersion = "23.11";
       };
     privateNetwork = true;
