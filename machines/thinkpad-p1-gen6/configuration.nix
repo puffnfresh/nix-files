@@ -8,7 +8,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [
+      "https://cache.home.brianmckenna.org/"
+    ];
+    trusted-public-keys = [
+      "cache.home.brianmckenna.org:7mrVpgqZNZqMv+lc+WWTCvEjuWwCfnpR/IdzoRx9jUw="
+    ];
+    trusted-users = [ "@wheel" ];
+  };
+  networking.hosts."192.168.1.57" = [ "cache.home.brianmckenna.org" ];
+
   nix.registry = {
     nixpkgs.to = {
       type = "path";
