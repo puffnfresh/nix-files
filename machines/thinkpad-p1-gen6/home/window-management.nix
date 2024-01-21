@@ -40,6 +40,11 @@
         "$mainMod, K, movefocus, u"
         "$mainMod, L, movefocus, r"
 
+        "$mainMod SHIFT, H, movewindow, l"
+        "$mainMod SHIFT, J, movewindow, d"
+        "$mainMod SHIFT, K, movewindow, u"
+        "$mainMod SHIFT, L, movewindow, r"
+
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
