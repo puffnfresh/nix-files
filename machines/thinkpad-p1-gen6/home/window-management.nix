@@ -285,12 +285,12 @@
 
   programs.wofi = {
     enable = true;
-    style = ''
-      @import "${pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/xlce/wofi/cdaa582a1d8e9e8fcbd6e159ee337a72b0059a61/src/mocha/blue/style.css";
-        sha256 = "sha256-8at+u9R4YtKaD4UHPT1ilKXiCi7QyyPe0r6PeumpfNg=";
-      }}";
-    '';
+    # style = ''
+    #   @import "${pkgs.fetchurl {
+    #     url = "https://raw.githubusercontent.com/xlce/wofi/cdaa582a1d8e9e8fcbd6e159ee337a72b0059a61/src/mocha/blue/style.css";
+    #     sha256 = "sha256-8at+u9R4YtKaD4UHPT1ilKXiCi7QyyPe0r6PeumpfNg=";
+    #   }}";
+    # '';
   };
 
   home.packages = [
