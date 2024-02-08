@@ -44,7 +44,7 @@
     privateKeyFile = "/home/bmckenna/code/atlassian/anyconnect-to-wireguard-scripts/keys/wg-private-key";
     peers = [
       {
-        publicKey = "IdDPqFqFYzWiYUWAj17wBjUaDuEY5X5+ToQm4JvKlwk=";
+        publicKey = "sRERaiw03OTn7SXP6N/BjyuuziicR4UO8qJuluZWThM=";
         allowedIPs = [ "192.168.56.2/32" ];
         endpoint = "192.168.122.2:51820";
       }
