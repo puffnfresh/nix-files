@@ -12,11 +12,7 @@
   };
   programs.steam = {
     enable = true;
-    package = pkgs.steam.override {
-      extraEnv.LD_PRELOAD = "${pkgs.pkgsi686Linux.callPackage ../../packages/extest { }}/lib/libextest.so";
-    };
-    # https://github.com/NixOS/nixpkgs/pull/269881
-    # extest.enable = true;
+    extest.enable = true;
   };
 
   # hardware.opengl.extraPackages = [
@@ -32,6 +28,13 @@
   time.timeZone = "Australia/Hobart";
 
   i18n.defaultLocale = "en_AU.UTF-8";
+
+  nix.registry = {
+    nixpkgs.to = {
+      type = "path";
+      path = pkgs.path;
+    };
+  };
 
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
@@ -94,7 +97,7 @@
       pkgs.thunderbird
       pkgs.tmux
       pkgs.microsoft-edge
-      pkgs.yuzu-early-access
+      # pkgs.yuzu-early-access
       (pkgs.vscode-with-extensions.override {
         vscodeExtensions = [
           pkgs.vscode-extensions.arrterian.nix-env-selector
