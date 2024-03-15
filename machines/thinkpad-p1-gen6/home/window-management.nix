@@ -117,9 +117,9 @@
 
   xdg.configFile."hypr/hyprpaper.conf".text =
     let
-      settings = {
-        preload = [ "${./catppuccin_mocha_base_white_atlassian.png}" ];
-        wallpaper = [ ",${./catppuccin_mocha_base_white_atlassian.png}" ];
+      settings = let image = ./Youtube_Social_astronauts.png; in {
+        preload = [ "${image}" ];
+        wallpaper = [ ",${image}" ];
         splash = true;
       };
     in

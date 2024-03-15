@@ -5,6 +5,13 @@
     [ ./hardware-configuration.nix
     ];
 
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -18,7 +25,10 @@
     ];
     trusted-users = [ "@wheel" ];
   };
-  networking.hosts."192.168.1.57" = [ "cache.home.brianmckenna.org" ];
+  networking.hosts."192.168.1.57" = [
+    "hydra.home.brianmckenna.org"
+    "cache.home.brianmckenna.org"
+  ];
 
   nix.registry = {
     nixpkgs.to = {
@@ -67,6 +77,15 @@
     pulse.enable = true;
   };
 
+  virtualisation.hypervGuest = {
+    enable = true;
+    videoMode = "1024x768";
+  };
+
+  virtualisation.docker = {
+    enable = true;
+  };
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
@@ -100,7 +119,7 @@
   programs.zsh.enable = true;
   services.openssh.enable = true;
 
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 3389 ];
   networking.firewall.allowedUDPPorts = [ 51820 ];
 
   system.stateVersion = "23.11";

@@ -17,6 +17,9 @@
   programs.kitty = {
     enable = true;
     theme = "Catppuccin-Mocha";
+    extraConfig = ''
+      term xterm-256color
+    '';
   };
   programs.autojump.enable = true;
   programs.jq.enable = true;
@@ -25,7 +28,7 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = "gnome3";
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 
   programs.password-store = {
