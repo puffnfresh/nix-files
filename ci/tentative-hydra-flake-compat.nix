@@ -3,6 +3,7 @@
 , jovian-nixos
 , home-manager
 , flake-programs-sqlite
+, flake-utils
 , flake-compat
 }:
 
@@ -15,6 +16,7 @@ let
         jovian-nixos = flake jovian-nixos "";
         home-manager = flake home-manager "";
         flake-programs-sqlite = flake flake-programs-sqlite "";
+        flake-utils = flake flake-utils "";
       };
     }).result;
   hydraJobs = name:
