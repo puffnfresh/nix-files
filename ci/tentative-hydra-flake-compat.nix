@@ -4,6 +4,7 @@
 , home-manager
 , flake-programs-sqlite
 , flake-utils
+, nix-systems
 , flake-compat
 }:
 
@@ -17,6 +18,7 @@ let
         home-manager = flake home-manager "";
         flake-programs-sqlite = flake flake-programs-sqlite "";
         utils = flake flake-utils "";
+        systems = flake nix-systems "";
       };
     }).result;
   hydraJobs = name:
