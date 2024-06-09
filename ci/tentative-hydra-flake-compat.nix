@@ -1,6 +1,7 @@
 
 { nixpkgs
 , jovian-nixos
+, flake-compat
 }:
 
 let
