@@ -1,1 +1,0 @@
-../../ci/update-flake-from-hydra.sh
