@@ -23,8 +23,14 @@
             ratio-limit-enabled = true;
           };
         };
-        systemd.services.transmission.serviceConfig.BindReadOnlyPaths = lib.mkForce [ builtins.storeDir "/etc" ];
+        # https://github.com/NixOS/nixpkgs/issues/258793
+        # The merged "fix" doesn't seem to work
+        systemd.services.transmission.serviceConfig.BindPaths = lib.mkForce [
+          "${config.services.transmission.home}/.config/transmission-daemon"
+          config.services.transmission.settings.download-dir
+        ];
         services.plex.enable = true;
+        services.jellyfin.enable = true;
         system.stateVersion = "20.03";
       };
     forwardPorts = [
@@ -38,10 +44,16 @@
       { hostPort = 9696; }
       { hostPort = 32469; }
       { hostPort = 1900; protocol = "udp"; }
+
+      # Jellyfin
+      { hostPort = 8096; }
+      { hostPort = 8920; }
+      { hostPort = 1900; protocol = "udp"; }
+      { hostPort = 7359; protocol = "udp"; }
     ];
     autoStart = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 7878 9091 32400 8989 8686 32469 9696 5000 ];
-  networking.firewall.allowedUDPPorts = [ 1900 ];
+  networking.firewall.allowedTCPPorts = [ 7878 9091 32400 8989 8686 32469 9696 5000 8096 8920 ];
+  networking.firewall.allowedUDPPorts = [ 1900 7359 ];
 }

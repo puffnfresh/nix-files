@@ -29,10 +29,23 @@
               forceSSL = true;
               useACMEHost = "home.brianmckenna.org";
               # locations."/webhooks/".proxyPass = "http://localhost:9000/";
-              locations."/_matrix".proxyPass = "http://192.168.100.10:8008";
+              locations."= /_matrix/client/unstable/org.matrix.msc3575/sync".proxyPass = "http://192.168.100.10:8009";
+              locations."~ ^/client/".proxyPass = "http://192.168.100.10:8009";
+              locations."~ ^(\/_matrix|\/_synapse\/client)".proxyPass = "http://192.168.100.10:8008";
+              # locations."/_matrix".proxyPass = "http://192.168.100.10:8008";
               locations."/.well-known/matrix/server" = {
                 return = "200 '{\"m.server\": \"chat.home.brianmckenna.org:443\"}'";
-                extraConfig = "add_header Content-Type application/json;";
+                extraConfig = ''
+                  default_type application/json;
+                  add_header Access-Control-Allow-Origin *;
+                '';
+              };
+              locations."/.well-known/matrix/client" = {
+                return = "200 '{\"m.homeserver\":{\"base_url\":\"https://chat.home.brianmckenna.org\"},\"org.matrix.msc3575.proxy\":{\"url\":\"https://chat.home.brianmckenna.org\"}}'";
+                extraConfig = ''
+                  default_type application/json;
+                  add_header Access-Control-Allow-Origin *;
+                '';
               };
             };
             "hydra.home.brianmckenna.org" = {

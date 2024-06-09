@@ -3,7 +3,7 @@
     config =
       { config, pkgs, ... }:
       {
-        networking.firewall.allowedTCPPorts = [ 8008 ];
+        networking.firewall.allowedTCPPorts = [ 8008 8009 ];
         services.matrix-synapse = {
           settings = {
             server_name = "chat.home.brianmckenna.org";
@@ -22,6 +22,14 @@
             no_tls = true;
           };
           enable = true;
+        };
+        services.matrix-sliding-sync = {
+          enable = true;
+          settings = {
+            SYNCV3_BINDADDR = "0.0.0.0:8009";
+            SYNCV3_SERVER = "https://chat.home.brianmckenna.org";
+          };
+          environmentFile = "/var/lib/matrix-synapse/sliding-brian.env";
         };
         services.postgresql = {
           enable = true;
@@ -45,6 +53,7 @@
     localAddress = "192.168.100.11";
     forwardPorts = [
       { hostPort = 8008; }
+      { hostPort = 8009; }
     ];
     autoStart = true;
   };

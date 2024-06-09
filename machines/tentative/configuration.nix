@@ -18,6 +18,7 @@
       ./web.nix
     ];
 
+  nix.gc.automatic = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   fileSystems."/".options = [ "ssd" "noatime" ];
@@ -51,7 +52,16 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.br0.useDHCP = true;
+  networking.interfaces.br0.ipv4.addresses = [
+    {
+      address = "192.168.1.57";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = {
+    address = "192.168.1.1";
+    interface = "br0";
+  };
 
   networking.bridges.br0.interfaces = [
     "eno1"
