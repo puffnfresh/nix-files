@@ -5,12 +5,9 @@
 {
   services.unifi = {
     unifiPackage = pkgs.unifi;
-    mongodbPackage = pkgs.callPackage ./mongodb/4.4.nix {
-      sasl = pkgs.cyrus_sasl;
-      boost = pkgs.boost179.override { enableShared = false; };
-      inherit (pkgs.darwin) cctools;
-      inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security;
-    };
+    mongodbPackage = pkgs.mongodb-5_0.overrideAttrs (attrs: {
+      sconsFlags = attrs.sconsFlags ++ [ "--experimental-optimization=-sandybridge" ];
+    });
     openFirewall = true;
     enable = true;
   };	
