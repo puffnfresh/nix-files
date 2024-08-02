@@ -13,20 +13,41 @@
   # Managed by NixOS, just disable the warning
   home.file.".zshrc".text = "";
 
-  # programs.zsh = {
-  #   enable = true;
-  #   enableSyntaxHighlighting = true;
-  #   oh-my-zsh = {
-  #     enable = true;
-  #     theme = "kennethreitz";
-  #   };
-  # };
+  home.pointerCursor = {
+    package = pkgs.vanilla-dmz;
+    name = "Vanilla-DMZ";
+    size = 128;
+    x11.enable = true;
+    gtk.enable = true;
+  };
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.breeze-icons;
+      name = "breeze-dark";
+    };
+    theme = {
+      package = pkgs.breeze-gtk;
+      name = "Breeze-Dark";
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+  };
+
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  };
 
   programs.autojump.enable = true;
   programs.htop.enable = true;
   programs.jq.enable = true;
   programs.tmux.enable = true;
   programs.vscode.enable = true;
+
+  services.mako.enable = true;
 
   programs.ssh = {
     enable = true;
@@ -40,26 +61,28 @@
   programs.i3status-rust = {
     enable = true;
     bars.top = {
-      icons = "awesome5";
+      icons = "awesome6";
       theme = "native";
       blocks = [
         {
           block = "focused_window";
-          max_width = 50;
         }
         {
-          block = "sound";
+          block = "net";
+          device = "wlp3s0";
+        }
+        {
+          block = "battery";
         }
         {
           block = "backlight";
         }
         {
-          block = "battery";
-          format = "{percentage} {time}";
+          block = "sound";
         }
         {
           block = "time";
-          format = "%d %b %I:%M %p";
+          format = "$timestamp.datetime(f:'%d/%m %R')";
         }
       ];
     };
@@ -68,7 +91,7 @@
   wayland.windowManager = rec {
     sway = {
       enable = true;
-      systemdIntegration = false;
+      systemd.enable = false;
       config = {
         terminal = "kitty";
         menu = "dmenu_path | ${pkgs.wofi}/bin/wofi -d | xargs swaymsg exec --";
@@ -90,7 +113,10 @@
         };
         bars = [
           {
-            fonts = [ "sans-serif 10" ];
+            fonts = {
+              names = [ "sans-serif" "Font Awesome 6 Free Solid" ];
+              size = 12.0;
+            };
             position = "top";
             statusCommand = "i3status-rs ${config.xdg.configHome}/i3status-rust/config-top.toml";
           }
@@ -103,7 +129,10 @@
         };
         startup = [
           {
-            command = "swayidle -w timeout 60 'swaylock -f -c 000000'";
+            command = "swayidle -w timeout 120 'swaylock -f -c 000000'";
+          }
+          {
+            command = "exec mako";
           }
         ];
       };
@@ -119,7 +148,6 @@
     pkgs.pv
     pkgs.swaylock
     pkgs.swayidle
-    pkgs.mako
     pkgs.home-manager
     pkgs.thunderbird
     pkgs.element-desktop
