@@ -4,15 +4,15 @@
       { config, pkgs, lib, ... }:
       {
         nixpkgs.config.allowUnfree = true;
-        services.lidarr.enable = true;
+
+        services.commafeed = {
+          enable = true;
+          environment.CF_APP_PUBLICURL = "https://reader.home.brianmckenna.org";
+        };
+
         services.sonarr.enable = true;
         services.radarr.enable = true;
-        # services.readarr.enable = true;
         services.prowlarr.enable = true;
-        services.kavita = {
-          tokenKeyFile = "/var/lib/kavita/token.key";
-          enable = true;
-        };
         services.transmission = {
           enable = true;
           downloadDirPermissions = "0777";
@@ -45,6 +45,8 @@
       { hostPort = 32469; }
       { hostPort = 1900; protocol = "udp"; }
 
+      { hostPort = 8082; } # commafeed
+
       # Jellyfin
       { hostPort = 8096; }
       { hostPort = 8920; }
@@ -54,6 +56,6 @@
     autoStart = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 7878 9091 32400 8989 8686 32469 9696 5000 8096 8920 ];
+  networking.firewall.allowedTCPPorts = [ 7878 9091 32400 8989 8686 32469 9696 5000 8096 8920 8082 ];
   networking.firewall.allowedUDPPorts = [ 1900 7359 ];
 }
