@@ -16,6 +16,9 @@
       ./metrics.nix
       ./unifi.nix
       ./web.nix
+
+      # https://github.com/kazcw/phoe.nix
+      ./fanservice.nix
     ];
 
   nix.gc.automatic = true;
@@ -88,6 +91,8 @@
   boot.blacklistedKernelModules = [ "nouveau" "snd_hda_intel" ];
   boot.kernelParams = [ "intel_iommu=on" ];
   boot.kernelModules = [ "vfio-pci" ];
+
+  services.fanservice.enable = true;
 
   environment.systemPackages = [
     pkgs.gitMinimal

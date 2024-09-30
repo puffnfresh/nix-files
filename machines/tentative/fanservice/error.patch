@@ -1,0 +1,12 @@
+diff --git a/src/poweredge.rs b/src/poweredge.rs
+index df270ff..9507659 100644
+--- a/src/poweredge.rs
++++ b/src/poweredge.rs
+@@ -18,6 +18,7 @@ impl Backend for PowerEdge {
+         assert!(speed >= 0.0);
+         assert!(speed <= 1.0);
+         let speed = (speed * 100.0).round() as u8;
++        error!("ipmi cmd: 0x30, 0x30, 0x02, 0xff, {}", speed);
+         self.ipmi
+             .cmd(0x30, 0x30, &mut [0x02, 0xff, speed])
+             .map_err(|e| Box::new(e) as Box<dyn Debug>)
