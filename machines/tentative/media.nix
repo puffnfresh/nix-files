@@ -10,9 +10,24 @@
           environment.CF_APP_PUBLICURL = "https://reader.home.brianmckenna.org";
         };
 
-        services.sonarr.enable = true;
-        services.radarr.enable = true;
-        services.prowlarr.enable = true;
+        services.immich = {
+          enable = true;
+          host = "0.0.0.0";
+          openFirewall = true;
+        };
+
+        services.sonarr = {
+          enable = true;
+          openFirewall = true;
+        };
+        services.radarr = {
+          enable = true;
+          openFirewall = true;
+        };
+        services.prowlarr = {
+          enable = true;
+          openFirewall = true;
+        };
         services.transmission = {
           enable = true;
           downloadDirPermissions = "0777";
@@ -29,33 +44,44 @@
           "${config.services.transmission.home}/.config/transmission-daemon"
           config.services.transmission.settings.download-dir
         ];
-        services.plex.enable = true;
-        services.jellyfin.enable = true;
-        system.stateVersion = "20.03";
-      };
-    forwardPorts = [
-      { hostPort = 5000; }
-      { hostPort = 7878; }
-      { hostPort = 9091; }
-      { hostPort = 32400; }
-      # { hostPort = 8787; }
-      { hostPort = 8989; }
-      { hostPort = 8686; }
-      { hostPort = 9696; }
-      { hostPort = 32469; }
-      { hostPort = 1900; protocol = "udp"; }
+        services.plex = {
+          enable = true;
+          openFirewall = true;
+        };
+        services.jellyfin = {
+          enable = true;
+          openFirewall = true;
+        };
 
+        networking = {
+          nameservers = [ "208.67.220.220" "8.8.4.4" ];
+          useHostResolvConf = false;
+        };
+        networking.firewall.allowedTCPPorts = [ 8082 9091 ];
+
+        system.stateVersion = "24.05";
+      };
+    privateNetwork = true;
+    hostAddress = "192.168.101.10";
+    localAddress = "192.168.101.11";
+    forwardPorts = [
+      { hostPort = 7878; } # sonarr
+      { hostPort = 9091; } # transmission
+      { hostPort = 32400; } # plex
+      { hostPort = 8989; } # radarr
+      { hostPort = 9696; } # prowlarr
+      { hostPort = 32469; } # plex DLNA
+      { hostPort = 1900; protocol = "udp"; } # plex DLNA
       { hostPort = 8082; } # commafeed
+      { hostPort = 3001; } # immich
 
       # Jellyfin
       { hostPort = 8096; }
       { hostPort = 8920; }
-      { hostPort = 1900; protocol = "udp"; }
+      # { hostPort = 1900; protocol = "udp"; }
       { hostPort = 7359; protocol = "udp"; }
     ];
     autoStart = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 7878 9091 32400 8989 8686 32469 9696 5000 8096 8920 8082 ];
-  networking.firewall.allowedUDPPorts = [ 1900 7359 ];
 }
