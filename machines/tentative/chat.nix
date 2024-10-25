@@ -23,14 +23,6 @@
           };
           enable = true;
         };
-        services.matrix-sliding-sync = {
-          enable = true;
-          settings = {
-            SYNCV3_BINDADDR = "0.0.0.0:8009";
-            SYNCV3_SERVER = "https://chat.home.brianmckenna.org";
-          };
-          environmentFile = "/var/lib/matrix-synapse/sliding-brian.env";
-        };
         services.postgresql = {
           enable = true;
           initialScript = pkgs.writeText "synapse-init.sql" ''
