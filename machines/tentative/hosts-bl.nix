@@ -1,22 +1,32 @@
-{ lib, buildGoPackage, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
-buildGoPackage rec {
-  pname = "Hosts-BL";
-  version = builtins.substring 0 7 src.rev;
-
-  goPackagePath = "github.com/ScriptTiger/Hosts-BL";
+buildGoModule rec {
+  pname = "hosts-bl";
+  version = "0-unstable-2024-11-17";
 
   src = fetchFromGitHub {
     owner = "ScriptTiger";
-    repo = pname;
-    rev = "b8efebe4748ccd043eccc3df37725a16338451de";
-    sha256 = "sha256-iBNsn9iM/6SuDWJTrEUDEYp1KdH/Ca2ibx1q4loN7Zo=";
+    repo = "Hosts-BL";
+    rev = "b3ac0a50fce8e714e754a17e6a11f8709386782c";
+    sha256 = "sha256-w+4dEWwFMjBbeJPOqMrzLBBzPYh/V5SfV2BMrI0p3nw=";
   };
 
+  postPatch = ''
+    go mod init github.com/ScriptTiger/Hosts-BL
+  '';
+
+  vendorHash = null;
+
   meta = {
+    homepage = "https://github.com/ScriptTiger/Hosts-BL";
     description = "Simple tool to handle hosts file black lists";
-    license = lib.licenses.mit;
+    mainProgram = "Hosts-BL";
     maintainers = [ lib.maintainers.puffnfresh ];
     platforms = lib.platforms.unix;
+    license = lib.licenses.mit;
   };
 }
