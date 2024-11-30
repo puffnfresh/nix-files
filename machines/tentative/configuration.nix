@@ -42,7 +42,7 @@
   # Define on which hard drive you want to install Grub.
 
   # boot.loader.grub.device = "/dev/disk/by-id/scsi-36842b2b01604e20026395baf41cf7fca"; # or "nodev" for efi only
-  boot.loader.grub.device = "/dev/disk/by-id/scsi-36842b2b01604e2002aac8b340e0d0d63";
+  boot.loader.grub.device = "/dev/disk/by-id/ata-SanDisk_SDSSDHP256G_132573411935";
 
   boot.supportedFilesystems = [ "zfs" ];
 
