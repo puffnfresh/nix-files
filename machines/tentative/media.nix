@@ -5,7 +5,7 @@
       {
         nixpkgs.config = {
           allowUnfree = true;
-          config.permittedInsecurePackages = [
+          permittedInsecurePackages = [
             "aspnetcore-runtime-wrapped-6.0.36"
           ];
         };
