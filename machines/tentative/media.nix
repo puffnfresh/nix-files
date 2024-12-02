@@ -3,7 +3,12 @@
     config =
       { config, pkgs, lib, ... }:
       {
-        nixpkgs.config.allowUnfree = true;
+        nixpkgs.config = {
+          allowUnfree = true;
+          config.permittedInsecurePackages = [
+            "aspnetcore-runtime-wrapped-6.0.36"
+          ];
+        };
 
         services.commafeed = {
           enable = true;
