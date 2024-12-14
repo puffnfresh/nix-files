@@ -3,12 +3,7 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      pinentry-wsl-ps1 = self.callPackage ./pinentry-wsl-ps1.nix { };
-      wclip = self.callPackage ./wclip.nix { };
-    })
-  ];
+  home.stateVersion = "25.05";
 
   programs.autojump.enable = true;
   programs.htop.enable = true;
@@ -23,10 +18,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = null;
-    extraConfig = ''
-      pinentry-program ${pkgs.pinentry-wsl-ps1}/bin/pinentry-wsl-ps1.sh
-    '';
+    pinentryPackage = pkgs.pinentry-wsl-ps1;
   };
 
   programs.gpg.enable = true;

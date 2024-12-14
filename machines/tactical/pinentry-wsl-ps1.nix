@@ -17,4 +17,6 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/pinentry-wsl-ps1.sh \
       --prefix PATH : /mnt/c/Windows/System32/WindowsPowerShell/v1.0
   '';
+
+  meta.mainProgram = "pinentry-wsl-ps1.sh";
 }
