@@ -5,16 +5,8 @@
     ./hardware-configuration.nix
   ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      retroarchBare = super.retroarchBare.overrideAttrs (attrs: {
-        patches = attrs.patches ++ [ ./0001-Fallback-to-screensaver-inhibit-via-D-Bus-on-Wayland.patch ];
-        buildInputs = attrs.buildInputs ++ [ self.dbus ];
-        configureFlags = attrs.configureFlags ++ [ "--enable-dbus" ];
-      });
-    })
-  ];
-
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings = {
     substituters = [
       "https://cache.tectonic.brianmckenna.org/"
@@ -192,12 +184,10 @@
     wifi.scanRandMacAddress = false;
   };
 
-  hardware.pulseaudio.enable = true;
-
   environment.systemPackages = [
-    (pkgs.retroarch.override {
-      cores = [ pkgs.libretro.genesis-plus-gx ];
-    })
+    (pkgs.retroarch.withCores (cores: [
+      cores.genesis-plus-gx
+    ]))
   ];
 
   environment.etc."machine-info".text = ''

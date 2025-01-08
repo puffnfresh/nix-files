@@ -25,13 +25,6 @@
               home-manager.nixosModules.home-manager
             ];
           };
-        tenacious =
-          nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              ./machines/rg552/configuration.nix
-            ];
-          };
         tectonic =
           nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
@@ -48,7 +41,6 @@
         in
         {
           kobo-clara-2e = toplevel "termly";
-          anbernic-rg552 = toplevel "tenacious";
           oci-compute-instance = toplevel "tectonic";
         };
     };
