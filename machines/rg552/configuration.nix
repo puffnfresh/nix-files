@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  batoceraRev = "4ae3933bbde7ef294d12baac7d43ea50fb9a3c41";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -33,8 +36,8 @@
       let
         original =
           pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/a95c745242893338941914421b52fecd41879af5/board/batocera/rockchip/rk3399/dts/rk3399-anbernic-rg552.dts";
-            sha256 = "sha256-VAHo0YVJ0thjJiJqwxWxMWNR6fjy4kWHoN5RXbxBEV4=";
+            url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${batoceraRev}/board/batocera/rockchip/rk3399/dts/rk3399-anbernic-rg552.dts";
+            sha256 = "sha256-VAHo0YVJ0thjJiJqwxWxMWNR6fjy4kWHoN5RXbxBEV5=";
           };
       in
       pkgs.runCommandCC "rg552-dts" {
@@ -59,12 +62,9 @@
     "console=ttyS2,1500000n8"
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  # boot.kernelPackages = pkgs.linuxPackages_6_1;
 
   boot.kernelPatches =
-    let
-      rev = "a95c745242893338941914421b52fecd41879af5";
-    in
     [
       {
         name = "rg552-config";
@@ -82,102 +82,17 @@
         };
       }
       {
-        name = "drivers-gpu-drm-panel-add-rg552-s-panel";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0000-drivers-gpu-drm-panel-add-rg552-s-panel.patch";
-          sha256 = "sha256-CsTNUuvSGMOqwY8xOv8YzFQkVc+ARB69mmWAk8d+MxI=";
-        };
+        name = "linux-0002-drivers-add-rg552-singleadcjoy";
+        patch = ./linux-0002-drivers-add-rg552-singleadcjoy.patch;
       }
-      {
-        name = "drivers-add_rg552_singleadcjoy";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0001-drivers-add_rg552_singleadcjoy.patch";
-          sha256 = "sha256-dGYRuCtTpmLjQT5JYYpzLgsf1MXqnCGBACs5quIKTjI=";
-        };
-      }
-      {
-        name = "rockchip-from-list";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0002-rockchip-from-list.patch";
-          sha256 = "sha256-UqxJpZvIHZggOrQ1vhtXklRn6GGWzkyrpoQKwaS7kyk=";
-        };
-      }
-      {
-        name = "drivers-support-chip-RTL8188FU";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0003-drivers-support-chip-RTL8188FU.patch";
-          sha256 = "sha256-mOfL7he1s6FhqipAvOy1aKMbUFmcZUouX400GVF/LaM=";
-        };
-      }
-      {
-        name = "rename_cw2015_battery";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0003-rename_cw2015_battery.patch";
-          sha256 = "sha256-NTXKAEtLnqN98sjTYtCETCVNYQ2JKVQbpiEDwYj6aes=";
-        };
-      }
-      {
-        name = "net-phy-add-support-for-motorcomm-yt8531c-phy";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0008-net-phy-add-support-for-motorcomm-yt8531c-phy.patch";
-          sha256 = "sha256-Tp4N9WJ4TxWL94s96cJ9hiNryH8AhYzmEn8bcc1b9Ag=";
-        };
-      }
-      {
-        name = "v4l2-from-list";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0011-v4l2-from-list.patch";
-          sha256 = "sha256-C0uXIpwQgH1LDBWb03PWXqFpMw0Mdk0YRKn/4mR6YcE=";
-        };
-      }
-      {
-        name = "drm-from-list";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-0020-drm-from-list.patch";
-          sha256 = "sha256-ZncPuSf8U7FUaxLlN2A1QbjferhFvu1SSr7SqFgnkws=";
-        };
-      }
-      {
-        name = "drm-rockchip";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-1000-drm-rockchip.patch";
-          sha256 = "sha256-5Zy5pnlqs5/HeRSBqHoyzbK+Wk21hVNOUN+snMi9pyo=";
-        };
-      }
-      {
-        name = "v4l2-rockchip";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-1001-v4l2-rockchip.patch";
-          sha256 = "sha256-Ux7q0hBuF+RWap2tC4m3XSQU1HjX47YHGySVpBa0928=";
-        };
-      }
-      {
-        name = "for-libreelec";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-1002-for-libreelec.patch";
-          sha256 = "sha256-uDz1Mjo+0y6PCnUX+ZPtgC28NP9TdCcUosK1e6TuCGE=";
-        };
-      }
-      # Doesn't apply:
       # {
-      #   name = "v4l2-wip-rkvdec-hevc";
-      #   patch = pkgs.fetchpatch {
-      #     url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-2000-v4l2-wip-rkvdec-hevc.patch";
-      #     sha256 = "sha256-4Ph2VBfKE/knWIQz87Hk26esF9JFK0VcBkyFdsuK4Ow=";
-      #   };
+      #   name = "singleadcjoy-defer-probe";
+      #   patch = ./singleadcjoy-defer-probe.patch;
       # }
-      {
-        name = "v4l2-wip-iep-driver";
-        patch = pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/batocera-linux/batocera.linux/${rev}/board/batocera/rockchip/rk3399/linux_patches/linux-2001-v4l2-wip-iep-driver.patch";
-          sha256 = "sha256-cKJ7HbAG+dg3Tkfiyb8vGhEhp6X2h6ktswXoPXPMg/E=";
-        };
-      }
-      {
-        name = "singleadcjoy-defer-probe";
-        patch = ./singleadcjoy-defer-probe.patch;
-      }
-    ];
+    ] ++ builtins.map (p: {
+      name = builtins.elemAt (pkgs.lib.splitString "." (builtins.baseNameOf p.url)) 0;
+      patch = pkgs.fetchpatch p;
+    }) (import ./batocera-linux-patches.nix);
 
   networking.networkmanager = {
     enable = true;
