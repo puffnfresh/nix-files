@@ -100,6 +100,7 @@ in
   };
 
   environment.systemPackages = [
+    pkgs.gitMinimal
     (pkgs.retroarch.withCores (cores: [
       cores.genesis-plus-gx
     ]))
@@ -126,7 +127,7 @@ in
         xwayland = "true";
         outputs."DSI-1" = {
           scale = 2;
-          rotate = "90";
+          rotate = "270";
         };
       };
     };
