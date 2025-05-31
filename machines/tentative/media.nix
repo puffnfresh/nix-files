@@ -42,6 +42,7 @@
           downloadDirPermissions = "0777";
           settings = {
             download-dir = "/media/Downloads";
+            no-incomplete-dir = true;
             rpc-whitelist = "127.0.0.1,192.168.1.*";
             rpc-bind-address = "0.0.0.0";
             ratio-limit-enabled = true;
@@ -80,9 +81,9 @@
       { hostPort = 8989; } # radarr
       { hostPort = 9696; } # prowlarr
       { hostPort = 32469; } # plex DLNA
-      { hostPort = 1900; protocol = "udp"; } # plex DLNA
+      # { hostPort = 1900; protocol = "udp"; } # plex DLNA
       { hostPort = 8082; } # commafeed
-      { hostPort = 3001; } # immich
+      { hostPort = 2283; } # immich
 
       # Jellyfin
       { hostPort = 8096; }

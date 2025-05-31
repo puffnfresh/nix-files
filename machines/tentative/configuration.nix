@@ -92,8 +92,24 @@
 
   services.tailscale.enable = true;
 
+  services.nfs.server = {
+    enable = true;
+    statdPort = 4000;
+    lockdPort = 4001;
+    mountdPort = 4002;
+    exports = ''
+      /var/lib/containers/media/media/Shared 192.168.1.0/24(rw,no_subtree_check,all_squash)
+    '';
+  };
+
   nixpkgs.config.allowUnfree = true;
-  networking.firewall.allowedTCPPorts = [ 3260 ];
+  networking.firewall.allowedTCPPorts = [
+    3260
+    2049 111 4000 4001 4002 # NFS
+  ];
+  networking.firewall.allowedUDPPorts = [
+    111 4000 4001 4002 # NFS
+  ];
 
   # Virtualisation
   virtualisation.libvirtd.enable = true;

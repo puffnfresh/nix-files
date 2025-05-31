@@ -18,6 +18,7 @@
           recommendedGzipSettings = true;
           recommendedOptimisation = true;
           recommendedTlsSettings = true;
+          clientMaxBodySize = "8196M";
           virtualHosts = {
             "home.brianmckenna.org" = {
               forceSSL = true;
@@ -72,6 +73,16 @@
               locations = {
                 "/" = {
                   proxyPass = "http://192.168.101.11:8082";
+                };
+              };
+            };
+            "photos.home.brianmckenna.org" = {
+              forceSSL = true;
+              enableACME = true;
+              locations = {
+                "/" = {
+                  proxyPass = "http://192.168.101.11:2283";
+                  proxyWebsockets = true;
                 };
               };
             };

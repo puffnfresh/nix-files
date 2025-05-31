@@ -48,6 +48,10 @@
     { device = "protozoic/backup";
       fsType = "zfs";
     };
+  fileSystems."/var/lib/containers/media/media/Shared" =
+    { device = "protozoic/shared";
+      fsType = "zfs";
+    };
 
   swapDevices = [ ];
 
