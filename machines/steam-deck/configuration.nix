@@ -87,7 +87,6 @@
       pkgs.autojump
       pkgs.btop
       pkgs.chromium
-      pkgs.microsoft-edge
       pkgs.discord
       pkgs.element-desktop
       pkgs.gitMinimal
@@ -95,7 +94,6 @@
       pkgs.silver-searcher
       pkgs.thunderbird
       pkgs.tmux
-      pkgs.microsoft-edge
       # pkgs.yuzu-early-access
       (pkgs.vscode-with-extensions.override {
         vscodeExtensions = [
