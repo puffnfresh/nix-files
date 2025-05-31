@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
     inherit version pname;
     sha256 = "12aib00c5nrg0jwgppvhf06qwanld0q4w3gbgh0b9d4xsd4i7wr2";
   };
-  cargoHash = "sha256-bpVQbrJroaBOx5v9Flj9eq+/liDMnVpQEpBuoQqy9bw=";
+  cargoHash = "sha256-A91x7oa6cxAXJRyhvxubsWWStJIkXVe6/+mM/h397F8=";
 
   patches = [ ./error.patch ];
 
