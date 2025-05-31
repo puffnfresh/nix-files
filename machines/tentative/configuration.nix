@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
+      ./automation.nix
       ./chat.nix
       ./dns.nix
       ./hydra.nix
