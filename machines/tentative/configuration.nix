@@ -29,6 +29,16 @@
   fileSystems."/nix".options = [ "ssd" "noatime" ];
   fileSystems."/home".options = [ "ssd" "noatime" ];
 
+  services.sanoid = {
+    enable = true;
+    datasets."protozoic/photos" = {
+      hourly = 0;
+      daily = 7;
+      weekly = 4;
+      monthly = 3;
+    };
+  };
+
   services.iperf3 = {
     enable = true;
     openFirewall = true;
