@@ -4,7 +4,7 @@
       { config, pkgs, ... }:
       {
         nixpkgs.config.allowUnfree = true;
-        services.ollama.enable = true;
+        services.qdrant.enable = true;
         services.n8n = {
           enable = true;
           openFirewall = true;
