@@ -86,6 +86,15 @@
                 };
               };
             };
+            "notes.home.brianmckenna.org" = {
+              forceSSL = true;
+              enableACME = true;
+              locations = {
+                "/" = {
+                  proxyPass = "http://192.168.101.11:3001";
+                };
+              };
+            };
           };
         };
         system.stateVersion = "20.03";

@@ -17,6 +17,19 @@
           enable = true;
           environment.CF_APP_PUBLICURL = "https://reader.home.brianmckenna.org";
         };
+        services.karakeep = {
+          enable = true;
+          extraEnvironment = {
+            PORT = "3001";
+            NEXTAUTH_URL = "https://notes.home.brianmckenna.org";
+            OLLAMA_BASE_URL = "http://192.168.1.204:11434";
+            INFERENCE_TEXT_MODEL = "llama3.1:8b";
+            INFERENCE_IMAGE_MODEL = "llama3.1:8b";
+            EMBEDDING_TEXT_MODEL = "nomic-embed-text";
+            DISABLE_SIGNUPS = "true";
+            DISABLE_NEW_RELEASE_CHECK = "true";
+          };
+        };
 
         services.immich = {
           enable = true;
@@ -67,7 +80,7 @@
           nameservers = [ "208.67.220.220" "8.8.4.4" ];
           useHostResolvConf = false;
         };
-        networking.firewall.allowedTCPPorts = [ 8082 9091 ];
+        networking.firewall.allowedTCPPorts = [ 8082 9091 3001 ];
 
         system.stateVersion = "24.05";
       };
@@ -84,6 +97,7 @@
       # { hostPort = 1900; protocol = "udp"; } # plex DLNA
       { hostPort = 8082; } # commafeed
       { hostPort = 2283; } # immich
+      { hostPort = 3001; } # karakeep
 
       # Jellyfin
       { hostPort = 8096; }
