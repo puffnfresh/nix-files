@@ -5,6 +5,35 @@
       {
         nixpkgs.config.allowUnfree = true;
 
+        services.home-assistant = {
+          enable = true;
+          extraComponents = [
+            "default_config"
+            "met"
+            "goodwe"
+            "jellyfin"
+            "samsungtv"
+            "lg_thinq"
+            "lifx"
+            "mobile_app"
+            "ring"
+            "roborock"
+            "brother"
+            "unifi"
+            "forecast_solar"
+          ];
+          customComponents = [
+            pkgs.home-assistant-custom-components.yoto_ha
+          ];
+          config = {
+            homeassistant = {
+              name = "Seafield";
+              unit_system = "metric";
+              time_zone = "Australia/Hobart";
+            };
+          };
+        };
+
         services.open-webui = {
           enable = true;
           port = 19931;
@@ -16,20 +45,18 @@
         };
         services.qdrant.enable = true;
 
-        services.n8n = {
-          enable = true;
-          openFirewall = true;
-        };
-        systemd.services.n8n.environment.N8N_SECURE_COOKIE = "false";
 
         system.stateVersion = "25.05";
       };
     forwardPorts = [
-      { hostPort = 5678; }
       { hostPort = 19931; }
+      { hostPort = 8123; }
     ];
     autoStart = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 5678 19931 ];
+  networking.firewall.allowedTCPPorts = [
+    19931
+    8123
+  ];
 }
