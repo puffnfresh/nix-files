@@ -67,10 +67,6 @@
           "${config.services.transmission.home}/.config/transmission-daemon"
           config.services.transmission.settings.download-dir
         ];
-        services.plex = {
-          enable = true;
-          openFirewall = true;
-        };
         services.jellyfin = {
           enable = true;
           openFirewall = true;
@@ -90,7 +86,6 @@
     forwardPorts = [
       { hostPort = 7878; } # sonarr
       { hostPort = 9091; } # transmission
-      { hostPort = 32400; } # plex
       { hostPort = 8989; } # radarr
       { hostPort = 9696; } # prowlarr
       { hostPort = 32469; } # plex DLNA
