@@ -20,6 +20,14 @@
             ];
             database_type = "psycopg2";
             no_tls = true;
+
+            retention = {
+              enabled = true;
+              default_policy.max_lifetime = "180d";
+              purge_jobs = [
+                { interval = "1d"; }
+              ];
+            };
           };
           enable = true;
         };
