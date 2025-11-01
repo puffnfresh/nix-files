@@ -35,20 +35,20 @@
       fsType = "zfs";
     };
 
-  fileSystems."/var/lib/containers/media/media" =
+  fileSystems."/var/lib/nixos-containers/media/media" =
     { device = "scutter/media";
       fsType = "zfs";
     };
 
-  fileSystems."/var/lib/containers/media/media/Photos" =
+  fileSystems."/var/lib/nixos-containers/media/media/Photos" =
     { device = "protozoic/photos";
       fsType = "zfs";
     };
-  fileSystems."/var/lib/containers/media/media/Backups" =
+  fileSystems."/var/lib/nixos-containers/media/media/Backups" =
     { device = "protozoic/backup";
       fsType = "zfs";
     };
-  fileSystems."/var/lib/containers/media/media/Shared" =
+  fileSystems."/var/lib/nixos-containers/media/media/Shared" =
     { device = "protozoic/shared";
       fsType = "zfs";
     };
