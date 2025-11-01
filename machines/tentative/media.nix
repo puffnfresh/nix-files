@@ -15,6 +15,7 @@
 
         services.commafeed = {
           enable = true;
+          package = pkg.callPackage ./commafeed.nix { };
           environment.CF_APP_PUBLICURL = "https://reader.home.brianmckenna.org";
         };
         services.karakeep = {
@@ -52,6 +53,7 @@
         };
         services.transmission = {
           enable = true;
+          package = pkgs.transmission_4;
           downloadDirPermissions = "0777";
           settings = {
             download-dir = "/media/Downloads";
