@@ -31,6 +31,7 @@
               unit_system = "metric";
               time_zone = "Australia/Hobart";
             };
+            default_config = {};
           };
         };
 
