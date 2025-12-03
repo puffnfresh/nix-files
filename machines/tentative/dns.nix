@@ -20,6 +20,13 @@
         no-dhcp-interface = "br0";
         bind-dynamic = true;
         conf-file = "${blacklist}";
+        address = [
+          "/hydra.home.brianmckenna.org/192.168.1.57"
+          "/cache.home.brianmckenna.org/192.168.1.57"
+          "/reader.home.brianmckenna.org/192.168.1.57"
+          "/photos.home.brianmckenna.org/192.168.1.57"
+          "/notes.home.brianmckenna.org/192.168.1.57"
+        ];
       };
   };
 
