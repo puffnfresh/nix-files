@@ -98,7 +98,7 @@
     lockdPort = 4001;
     mountdPort = 4002;
     exports = ''
-      /var/lib/containers/media/media/Shared 192.168.1.0/24(rw,no_subtree_check,all_squash)
+      /var/lib/nixos-containers/media/media/Shared 192.168.1.0/24(rw,no_subtree_check,all_squash)
     '';
   };
 
