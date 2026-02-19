@@ -14,6 +14,16 @@
     enable = true;
     extest.enable = true;
   };
+  programs.gamemode.enable = true;
+
+  programs.localsend.enable = true;
+
+  programs.nix-ld.enable = true;
+
+  virtualisation.containers.enable = true;
+  virtualisation.podman.enable = true;
+
+  services.tailscale.enable = true;
 
   # hardware.opengl.extraPackages = [
   #   pkgs.rocm-opencl-icd
@@ -74,27 +84,36 @@
     enable = true;
     extensions = [
       "mnjggcdmjocbbbhaepdhchncahnbgone"
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+      "ddkjiahejlhfcafbddmgiahcphecmpfh"
+      "naepdomgkenhinolocfifgehidddafch"
+      "gphhapmejobijbbhgpjhcjognlahblep"
     ];
   };
+  programs.browserpass.enable = true;
 
   users.users.brian = {
     isNormalUser = true;
     description = "Brian McKenna";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "dialout" ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [ (builtins.readFile ../../modules/users/brian.pub) ];
     packages = [
       pkgs.autojump
       pkgs.btop
       pkgs.chromium
+      pkgs.direnv
       pkgs.discord
       pkgs.element-desktop
+      pkgs.file
       pkgs.gitMinimal
+      pkgs.gnomeExtensions.keep-awake
+      pkgs.gnomeExtensions.tactile
+      pkgs.jq
+      pkgs.moonlight-qt
       pkgs.pass
       pkgs.silver-searcher
       pkgs.thunderbird
       pkgs.tmux
-      # pkgs.yuzu-early-access
       (pkgs.vscode-with-extensions.override {
         vscodeExtensions = [
           pkgs.vscode-extensions.arrterian.nix-env-selector
@@ -102,6 +121,8 @@
           pkgs.vscode-extensions.eamodio.gitlens
           pkgs.vscode-extensions.haskell.haskell
           pkgs.vscode-extensions.justusadam.language-haskell
+          pkgs.vscode-extensions.mkhl.direnv
+          pkgs.vscode-extensions.ocamllabs.ocaml-platform
         ];
       })
       pkgs.wl-clipboard
@@ -119,7 +140,6 @@
     ];
     trusted-users = [ "@wheel" ];
   };
-  networking.hosts."192.168.1.57" = [ "cache.home.brianmckenna.org" ];
 
   services.openssh.enable = true;
 
