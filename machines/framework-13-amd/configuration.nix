@@ -51,6 +51,7 @@
 
   xdg.portal = {
     enable = true;
+    config.common.default = [ "gnome" ];
     extraPortals = [
       pkgs.xdg-desktop-portal-gnome
     ];
@@ -95,7 +96,7 @@
   services.ollama = {
     enable = true;
     package = pkgs.ollama-rocm;
-    rocmOverrideGfx = "11.0.0"; # Upgrade to 11.5.0 when nixpkgs has ROCm 7.10
+    rocmOverrideGfx = "11.5.0";
     environmentVariables.OLLAMA_CONTEXT_LENGTH = builtins.toString (32 * 1024);
     host = "0.0.0.0";
     openFirewall = true;

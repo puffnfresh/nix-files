@@ -14,6 +14,8 @@
     btop.enable = true;
   };
 
+  gtk.gtk4.theme = null;
+
   home.username = "bmckenna";
   home.homeDirectory = "/home/bmckenna";
   home.stateVersion = "23.11";
@@ -44,10 +46,12 @@
   programs.password-store = {
     enable = true;
     package = pkgs.pass-wayland;
+    settings = { PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store"; };
   };
 
   programs.git = {
     enable = true;
+    signing.format = "openpgp";
     settings.user = {
       name = "Brian McKenna";
       email = "brian@brianmckenna.org";
@@ -63,7 +67,7 @@
     enable = true;
     mutableExtensionsDir = false;
     profiles.default.extensions = [
-      pkgs.vscode-extensions.anthropic.claude-code
+      # pkgs.vscode-extensions.anthropic.claude-code
       pkgs.vscode-extensions.hashicorp.hcl
       pkgs.vscode-extensions.hashicorp.terraform
       pkgs.vscode-extensions.eamodio.gitlens
