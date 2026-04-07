@@ -19,14 +19,17 @@
   home.stateVersion = "23.11";
 
   programs.home-manager.enable = true;
+  programs.nix-index.enable = true;
+
   programs.btop.enable = true;
   programs.direnv.enable = true;
 
   programs.kitty = {
     enable = true;
-    extraConfig = ''
-      term xterm-256color
-    '';
+    settings = {
+      term = "xterm-256color";
+      allow_remote_control = "yes";
+    };
   };
   programs.autojump.enable = true;
   programs.jq.enable = true;
@@ -35,7 +38,7 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 
   programs.password-store = {
@@ -45,26 +48,38 @@
 
   programs.git = {
     enable = true;
-    userName = "Brian McKenna";
-    userEmail = "brian@brianmckenna.org";
+    settings.user = {
+      name = "Brian McKenna";
+      email = "brian@brianmckenna.org";
+      merge.conflictstyle = "zdiff3";
+    };
   };
 
   programs.chromium = {
     enable = true;
-    # bkkmolkhemgaeaeggcmfbghljjjoofoh
-    # liecbddmkiiihnedobmlmillhodjkdmb
   };
 
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = [ pkgs.vscode-extensions.bbenoist.nix ];
+    mutableExtensionsDir = false;
+    profiles.default.extensions = [
+      pkgs.vscode-extensions.anthropic.claude-code
+      pkgs.vscode-extensions.hashicorp.hcl
+      pkgs.vscode-extensions.hashicorp.terraform
+      pkgs.vscode-extensions.eamodio.gitlens
+      pkgs.vscode-extensions.bbenoist.nix
+      pkgs.vscode-extensions.hashicorp.hcl
+      pkgs.vscode-extensions.catppuccin.catppuccin-vsc
+      pkgs.vscode-extensions.catppuccin.catppuccin-vsc-icons
+      pkgs.vscode-extensions.haskell.haskell
+      pkgs.vscode-extensions.justusadam.language-haskell
+    ];
   };
 
   programs.zsh = {
     enable = true;
     oh-my-zsh = {
       enable = true;
-      # theme = "kennethreitz";
     };
     syntaxHighlighting.enable = true;
   };
@@ -110,5 +125,18 @@
     pkgs.silver-searcher
     pkgs.thunderbird
     pkgs.element-desktop
+
+    pkgs.xwayland-satellite-stable
+    pkgs.dconf
+
+    (pkgs.writeScriptBin "hours-to-fractions" ''
+      #!/usr/bin/env zsh
+      TIME="$1"
+      HOURS="$(echo "$TIME" | cut -d : -f 1)"
+      MINUTES="$(echo "$TIME" | cut -d : -f 2)"
+      DECIMALS="$((MINUTES / 60.0))"
+      printf "%.2f" "$(("$HOURS" + "$DECIMALS"))"
+      echo
+    '')
   ];
 }

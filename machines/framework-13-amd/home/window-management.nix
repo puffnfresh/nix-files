@@ -2,10 +2,6 @@
 
 {
   catppuccin = {
-    gtk = {
-      enable = true;
-      accent = "blue";
-    };
     cursors.enable = true;
     mako.enable = true;
     waybar.enable = true;
@@ -13,7 +9,12 @@
 
   programs.niri = {
     enable = true;
+    package = pkgs.niri-unstable;
     settings = {
+      spawn-at-startup = [
+        { command = [ "xwayland-satellite" ]; }
+      ];
+      environment.DISPLAY = ":0";
       outputs."Samsung Display Corp. 0x4165 Unknown" = {
         position = {
           x = 0;
@@ -40,10 +41,11 @@
         "Mod+K".action = a.focus-window-or-workspace-up;
         "Mod+L".action = a.focus-column-right;
         "Mod+Return".action = a.spawn "kitty";
+        "Mod+O".action = a.toggle-overview;
         "Mod+Q".action = a.close-window;
         "Mod+Ctrl+H".action = a.move-column-left;
-        "Mod+Ctrl+J".action = a.move-window-down;
-        "Mod+Ctrl+K".action = a.move-window-up;
+        "Mod+Ctrl+J".action = a.move-window-down-or-to-workspace-down;
+        "Mod+Ctrl+K".action = a.move-window-up-or-to-workspace-up;
         "Mod+Ctrl+L".action = a.move-column-right;
         "Mod+Shift+H".action = a.focus-monitor-left;
         "Mod+Shift+J".action = a.focus-monitor-down;
@@ -65,18 +67,18 @@
         "Mod+7".action = a.focus-workspace 7;
         "Mod+8".action = a.focus-workspace 8;
         "Mod+9".action = a.focus-workspace 9;
-        "Mod+Ctrl+1".action = a.move-column-to-workspace 1;
-        "Mod+Ctrl+2".action = a.move-column-to-workspace 2;
-        "Mod+Ctrl+3".action = a.move-column-to-workspace 3;
-        "Mod+Ctrl+4".action = a.move-column-to-workspace 4;
-        "Mod+Ctrl+5".action = a.move-column-to-workspace 5;
-        "Mod+Ctrl+6".action = a.move-column-to-workspace 6;
-        "Mod+Ctrl+7".action = a.move-column-to-workspace 7;
-        "Mod+Ctrl+8".action = a.move-column-to-workspace 8;
-        "Mod+Ctrl+9".action = a.move-column-to-workspace 9;
+        # "Mod+Ctrl+1".action = a.move-column-to-workspace 1;
+        # "Mod+Ctrl+2".action = a.move-column-to-workspace 2;
+        # "Mod+Ctrl+3".action = a.move-column-to-workspace 3;
+        # "Mod+Ctrl+4".action = a.move-column-to-workspace 4;
+        # "Mod+Ctrl+5".action = a.move-column-to-workspace 5;
+        # "Mod+Ctrl+6".action = a.move-column-to-workspace 6;
+        # "Mod+Ctrl+7".action = a.move-column-to-workspace 7;
+        # "Mod+Ctrl+8".action = a.move-column-to-workspace 8;
+        # "Mod+Ctrl+9".action = a.move-column-to-workspace 9;
         "Mod+BracketLeft".action = a.consume-or-expel-window-left;
         "Mod+BracketRight".action = a.consume-or-expel-window-right;
-        "Mod+Shift+S".action = a.screenshot;
+        "Mod+Shift+S".action.screenshot = [];
         "Mod+W".action = a.toggle-column-tabbed-display;
         "Mod+V".action = a.toggle-window-floating;
         "Mod+Shift+V".action = a.switch-focus-between-floating-and-tiling;
@@ -96,9 +98,6 @@
         layer = "top";
         height = 30;
         modules-left = [
-          # "hyprland/workspaces"
-          # "hyprland/window"
-          # "hyprland/submap"
           "niri/workspaces"
           "niri/window"
         ];
@@ -116,10 +115,6 @@
         clock = {
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           # on-click = "${pkgs.xdg-utils}/bin/xdg-open https://calendar.google.com/";
-        };
-        "hyprland/workspaces" = {
-          on-scroll-up = "${pkgs.hyprland}/bin/hyprctl dispatch workspace m-1";
-          on-scroll-down = "${pkgs.hyprland}/bin/hyprctl dispatch workspace m+1";
         };
         cpu = {
           format = "{usage}% ";
@@ -220,18 +215,20 @@
     '';
   };
 
-  gtk.enable = true;
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-GTK-Teal-Dark";
+      package = pkgs.magnetic-catppuccin-gtk.override {
+        accent = [ "teal" ];
+      };
+    };
+  };
 
   services.mako.enable = true;
 
   programs.wofi = {
     enable = true;
-    # style = ''
-    #   @import "${pkgs.fetchurl {
-    #     url = "https://raw.githubusercontent.com/xlce/wofi/cdaa582a1d8e9e8fcbd6e159ee337a72b0059a61/src/mocha/blue/style.css";
-    #     sha256 = "sha256-8at+u9R4YtKaD4UHPT1ilKXiCi7QyyPe0r6PeumpfNg=";
-    #   }}";
-    # '';
   };
 
   home.packages = [
