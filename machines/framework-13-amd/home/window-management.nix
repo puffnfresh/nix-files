@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   catppuccin = {
@@ -32,61 +37,65 @@
       layout.focus-ring = {
         active.color = "#f38ba8";
       };
-      binds = let a = config.lib.niri.actions; in {
-        "Mod+Ctrl+P".action = a.spawn "${./scripts/wofi-pass.sh}";
-        "Mod+Shift+Slash".action = a.show-hotkey-overlay;
-        "Mod+D".action = a.spawn "nwg-drawer";
-        "Mod+H".action = a.focus-column-left;
-        "Mod+J".action = a.focus-window-or-workspace-down;
-        "Mod+K".action = a.focus-window-or-workspace-up;
-        "Mod+L".action = a.focus-column-right;
-        "Mod+Return".action = a.spawn "kitty";
-        "Mod+O".action = a.toggle-overview;
-        "Mod+Q".action = a.close-window;
-        "Mod+Ctrl+H".action = a.move-column-left;
-        "Mod+Ctrl+J".action = a.move-window-down-or-to-workspace-down;
-        "Mod+Ctrl+K".action = a.move-window-up-or-to-workspace-up;
-        "Mod+Ctrl+L".action = a.move-column-right;
-        "Mod+Shift+H".action = a.focus-monitor-left;
-        "Mod+Shift+J".action = a.focus-monitor-down;
-        "Mod+Shift+K".action = a.focus-monitor-up;
-        "Mod+Shift+L".action = a.focus-monitor-right;
-        "Mod+R".action = a.switch-preset-column-width;
-        "Mod+Shift+R".action = a.switch-preset-window-height;
-        "Mod+Ctrl+R".action = a.reset-window-height;
-        "Mod+F".action = a.maximize-column;
-        "Mod+Shift+F".action = a.fullscreen-window;
-        "Mod+Shift+E".action = a.quit;
-        "Mod+Shift+P".action = a.power-off-monitors;
-        "Mod+1".action = a.focus-workspace 1;
-        "Mod+2".action = a.focus-workspace 2;
-        "Mod+3".action = a.focus-workspace 3;
-        "Mod+4".action = a.focus-workspace 4;
-        "Mod+5".action = a.focus-workspace 5;
-        "Mod+6".action = a.focus-workspace 6;
-        "Mod+7".action = a.focus-workspace 7;
-        "Mod+8".action = a.focus-workspace 8;
-        "Mod+9".action = a.focus-workspace 9;
-        # "Mod+Ctrl+1".action = a.move-column-to-workspace 1;
-        # "Mod+Ctrl+2".action = a.move-column-to-workspace 2;
-        # "Mod+Ctrl+3".action = a.move-column-to-workspace 3;
-        # "Mod+Ctrl+4".action = a.move-column-to-workspace 4;
-        # "Mod+Ctrl+5".action = a.move-column-to-workspace 5;
-        # "Mod+Ctrl+6".action = a.move-column-to-workspace 6;
-        # "Mod+Ctrl+7".action = a.move-column-to-workspace 7;
-        # "Mod+Ctrl+8".action = a.move-column-to-workspace 8;
-        # "Mod+Ctrl+9".action = a.move-column-to-workspace 9;
-        "Mod+BracketLeft".action = a.consume-or-expel-window-left;
-        "Mod+BracketRight".action = a.consume-or-expel-window-right;
-        "Mod+Shift+S".action.screenshot = [];
-        "Mod+W".action = a.toggle-column-tabbed-display;
-        "Mod+V".action = a.toggle-window-floating;
-        "Mod+Shift+V".action = a.switch-focus-between-floating-and-tiling;
-        "Mod+Minus".action = a.set-column-width "-10%";
-        "Mod+Equal".action = a.set-column-width "+10%";
-        "Mod+Shift+Minus".action = a.set-window-height "-10%";
-        "Mod+Shift+Equal".action = a.set-window-height "+10%";
-      };
+      binds =
+        let
+          a = config.lib.niri.actions;
+        in
+        {
+          "Mod+Ctrl+P".action = a.spawn "${./scripts/wofi-pass.sh}";
+          "Mod+Shift+Slash".action = a.show-hotkey-overlay;
+          "Mod+D".action = a.spawn "nwg-drawer";
+          "Mod+H".action = a.focus-column-left;
+          "Mod+J".action = a.focus-window-or-workspace-down;
+          "Mod+K".action = a.focus-window-or-workspace-up;
+          "Mod+L".action = a.focus-column-right;
+          "Mod+Return".action = a.spawn "kitty";
+          "Mod+O".action = a.toggle-overview;
+          "Mod+Q".action = a.close-window;
+          "Mod+Ctrl+H".action = a.move-column-left;
+          "Mod+Ctrl+J".action = a.move-window-down-or-to-workspace-down;
+          "Mod+Ctrl+K".action = a.move-window-up-or-to-workspace-up;
+          "Mod+Ctrl+L".action = a.move-column-right;
+          "Mod+Shift+H".action = a.focus-monitor-left;
+          "Mod+Shift+J".action = a.focus-monitor-down;
+          "Mod+Shift+K".action = a.focus-monitor-up;
+          "Mod+Shift+L".action = a.focus-monitor-right;
+          "Mod+R".action = a.switch-preset-column-width;
+          "Mod+Shift+R".action = a.switch-preset-window-height;
+          "Mod+Ctrl+R".action = a.reset-window-height;
+          "Mod+F".action = a.maximize-column;
+          "Mod+Shift+F".action = a.fullscreen-window;
+          "Mod+Shift+E".action = a.quit;
+          "Mod+Shift+P".action = a.power-off-monitors;
+          "Mod+1".action = a.focus-workspace 1;
+          "Mod+2".action = a.focus-workspace 2;
+          "Mod+3".action = a.focus-workspace 3;
+          "Mod+4".action = a.focus-workspace 4;
+          "Mod+5".action = a.focus-workspace 5;
+          "Mod+6".action = a.focus-workspace 6;
+          "Mod+7".action = a.focus-workspace 7;
+          "Mod+8".action = a.focus-workspace 8;
+          "Mod+9".action = a.focus-workspace 9;
+          # "Mod+Ctrl+1".action = a.move-column-to-workspace 1;
+          # "Mod+Ctrl+2".action = a.move-column-to-workspace 2;
+          # "Mod+Ctrl+3".action = a.move-column-to-workspace 3;
+          # "Mod+Ctrl+4".action = a.move-column-to-workspace 4;
+          # "Mod+Ctrl+5".action = a.move-column-to-workspace 5;
+          # "Mod+Ctrl+6".action = a.move-column-to-workspace 6;
+          # "Mod+Ctrl+7".action = a.move-column-to-workspace 7;
+          # "Mod+Ctrl+8".action = a.move-column-to-workspace 8;
+          # "Mod+Ctrl+9".action = a.move-column-to-workspace 9;
+          "Mod+BracketLeft".action = a.consume-or-expel-window-left;
+          "Mod+BracketRight".action = a.consume-or-expel-window-right;
+          "Mod+Shift+S".action.screenshot = [ ];
+          "Mod+W".action = a.toggle-column-tabbed-display;
+          "Mod+V".action = a.toggle-window-floating;
+          "Mod+Shift+V".action = a.switch-focus-between-floating-and-tiling;
+          "Mod+Minus".action = a.set-column-width "-10%";
+          "Mod+Equal".action = a.set-column-width "+10%";
+          "Mod+Shift+Minus".action = a.set-window-height "-10%";
+          "Mod+Shift+Equal".action = a.set-window-height "+10%";
+        };
     };
   };
 
@@ -124,7 +133,11 @@
         };
         temperature = {
           format = "{temperatureC}°C {icon}";
-          format-icons = ["" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+          ];
         };
         network = {
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
@@ -132,18 +145,24 @@
         wireplumber = {
           format = "{volume}% {icon}";
           format-muted = "";
-          format-icons = ["" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+          ];
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ toggle";
-          scroll-step	= 5;
+          scroll-step = 5;
         };
       };
     };
     style = ''
-      @import "${pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/Alexays/Waybar/cad18f39f51fdbd93d3236572c8f18728b3a0930/resources/style.css";
-        sha256 = "sha256-IUKx+izpXXgU7H6FMliStONDqovzqMArzh/KwQ2F0HA=";
-      }}";
+      @import "${
+        pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/Alexays/Waybar/cad18f39f51fdbd93d3236572c8f18728b3a0930/resources/style.css";
+          sha256 = "sha256-IUKx+izpXXgU7H6FMliStONDqovzqMArzh/KwQ2F0HA=";
+        }
+      }";
 
       window#waybar {
         background-color: @yellow;
