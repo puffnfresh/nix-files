@@ -18,6 +18,8 @@
       ./unifi.nix
       ./web.nix
 
+      ./sip.nix
+
       # https://github.com/kazcw/phoe.nix
       ./fanservice.nix
     ];
