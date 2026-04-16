@@ -5,6 +5,9 @@
       {
         nixpkgs.config.allowUnfree = true;
 
+        # forecast.solar doesn't respond to IPv6
+        networking.enableIPv6 = false;
+
         services.home-assistant = {
           enable = true;
           extraComponents = [
