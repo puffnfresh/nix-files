@@ -23,10 +23,10 @@
           extraEnvironment = {
             PORT = "3001";
             NEXTAUTH_URL = "https://notes.home.brianmckenna.org";
-            OLLAMA_BASE_URL = "http://192.168.1.204:11434";
-            INFERENCE_TEXT_MODEL = "llama3.1:8b";
-            INFERENCE_IMAGE_MODEL = "llama3.1:8b";
-            EMBEDDING_TEXT_MODEL = "nomic-embed-text";
+            OLLAMA_BASE_URL = "http://192.168.1.184:11434";
+            INFERENCE_TEXT_MODEL = "gemma3";
+            INFERENCE_IMAGE_MODEL = "llava";
+            EMBEDDING_TEXT_MODEL = "embeddinggemma";
             DISABLE_SIGNUPS = "true";
             DISABLE_NEW_RELEASE_CHECK = "true";
           };
@@ -47,9 +47,23 @@
           enable = true;
           openFirewall = true;
         };
+        services.lidarr = {
+          enable = true;
+          openFirewall = true;
+        };
         services.prowlarr = {
           enable = true;
           openFirewall = true;
+        };
+        services.slskd = {
+          enable = true;
+          openFirewall = true;
+          settings = {
+            directories.downloads = "/media/Downloads/slskd";
+            shares.directories = [ "/media/Music" ];
+          };
+          domain = null;
+          environmentFile = "/var/lib/slskd/tentative.env";
         };
         services.transmission = {
           enable = true;
@@ -78,7 +92,7 @@
           nameservers = [ "208.67.220.220" "8.8.4.4" ];
           useHostResolvConf = false;
         };
-        networking.firewall.allowedTCPPorts = [ 8082 9091 3001 ];
+        networking.firewall.allowedTCPPorts = [ 8082 9091 3001 5030 ];
 
         system.stateVersion = "24.05";
       };
@@ -86,9 +100,11 @@
     hostAddress = "192.168.101.10";
     localAddress = "192.168.101.11";
     forwardPorts = [
+      { hostPort = 5030; } # slskd
       { hostPort = 7878; } # sonarr
-      { hostPort = 9091; } # transmission
+      { hostPort = 8686; } # lidarr
       { hostPort = 8989; } # radarr
+      { hostPort = 9091; } # transmission
       { hostPort = 9696; } # prowlarr
       { hostPort = 32469; } # plex DLNA
       # { hostPort = 1900; protocol = "udp"; } # plex DLNA
