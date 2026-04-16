@@ -50,6 +50,23 @@
           };
         };
       };
+      "home.brianmckenna.org" = {
+        serverAliases = [
+          "chat.home.brianmckenna.org"
+          "cache.home.brianmckenna.org"
+          "notes.home.brianmckenna.org"
+          "photos.home.brianmckenna.org"
+          "reader.home.brianmckenna.org"
+          "hydra.home.brianmckenna.org"
+        ];
+        enableACME = true;
+        forceSSL = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://100.88.66.59:80";
+          };
+        };
+      };
     };
   };
 
