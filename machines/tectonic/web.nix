@@ -17,6 +17,7 @@
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedTlsSettings = true;
+    clientMaxBodySize = "8196M";
     virtualHosts = {
       "brianmckenna.org" = {
         addSSL = true;
