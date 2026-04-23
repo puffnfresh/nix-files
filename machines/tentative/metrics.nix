@@ -93,6 +93,7 @@
         services.influxdb.enable = true;
         services.grafana = {
           settings.server.http_addr = "0.0.0.0";
+          settings.security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
           enable = true;
         };
         services.unpoller = {
