@@ -26,6 +26,7 @@
           "/reader.home.brianmckenna.org/192.168.1.57"
           "/photos.home.brianmckenna.org/192.168.1.57"
           "/notes.home.brianmckenna.org/192.168.1.57"
+          "/media.home.brianmckenna.org/192.168.1.57"
         ];
       };
   };

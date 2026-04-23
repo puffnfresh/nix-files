@@ -87,6 +87,14 @@
                 proxyPass = "http://192.168.101.11:3001";
               };
             };
+            "media.home.brianmckenna.org" = {
+              addSSL = true;
+              useACMEHost = "home.brianmckenna.org";
+              locations."/" = {
+                proxyPass = "http://192.168.101.11:8096";
+                proxyWebsockets = true;
+              };
+            };
           };
         };
         system.stateVersion = "20.03";

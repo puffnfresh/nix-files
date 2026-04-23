@@ -54,6 +54,7 @@
         serverAliases = [
           "chat.home.brianmckenna.org"
           "cache.home.brianmckenna.org"
+          "media.home.brianmckenna.org"
           "notes.home.brianmckenna.org"
           "photos.home.brianmckenna.org"
           "reader.home.brianmckenna.org"
