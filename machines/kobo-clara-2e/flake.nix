@@ -30,6 +30,9 @@
       packages.x86_64-linux.uBoot =
         crossPkgs.callPackage ./pkgs/u-boot-clara2e.nix {};
 
+      packages.armv7l-linux.uBoot =
+        self.nixosConfigurations.termly.pkgs.callPackage ./pkgs/u-boot-clara2e.nix {};
+
       packages.armv7l-linux.image =
         let
           targetPkgs = self.nixosConfigurations.termly.pkgs;
@@ -45,7 +48,7 @@
         in targetPkgs.runCommand "termly.img" {} ''
           cp ${rootfs}/nixos.img $out
           chmod +w $out
-          dd if=${self.packages.x86_64-linux.uBoot}/u-boot.imx \
+          dd if=${self.packages.armv7l-linux.uBoot}/u-boot.imx \
              of=$out bs=1k seek=1 conv=notrunc
         '';
 
