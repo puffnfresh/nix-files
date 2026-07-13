@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -47,7 +47,7 @@
     enable = true;
     package = pkgs.pass-wayland;
     settings = {
-      PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+      PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
     };
   };
 
@@ -128,7 +128,7 @@
     pkgs.killall
     pkgs.mg
     pkgs.pavucontrol
-    pkgs.silver-searcher
+    pkgs.ripgrep
     pkgs.thunderbird
     pkgs.element-desktop
 

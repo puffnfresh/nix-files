@@ -59,11 +59,9 @@
 
   xdg.portal = {
     enable = true;
-    config.common.default = [ "gnome" ];
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gnome
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
