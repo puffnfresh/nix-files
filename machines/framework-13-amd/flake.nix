@@ -32,7 +32,6 @@
             { nixpkgs.overlays = [ niri.overlays.niri ]; }
             # flake-programs-sqlite.nixosModules.programs-sqlite
             home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             {
               home-manager = {

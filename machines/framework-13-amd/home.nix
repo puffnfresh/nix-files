@@ -8,10 +8,9 @@
   manual.manpages.enable = false;
 
   catppuccin = {
+    enable = true;
+    autoEnable = true;
     flavor = "mocha";
-    starship.enable = true;
-    kitty.enable = true;
-    btop.enable = true;
   };
 
   gtk.gtk4.theme = null;
@@ -75,8 +74,6 @@
       pkgs.vscode-extensions.eamodio.gitlens
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.hashicorp.hcl
-      pkgs.vscode-extensions.catppuccin.catppuccin-vsc
-      pkgs.vscode-extensions.catppuccin.catppuccin-vsc-icons
       pkgs.vscode-extensions.haskell.haskell
       pkgs.vscode-extensions.justusadam.language-haskell
     ];

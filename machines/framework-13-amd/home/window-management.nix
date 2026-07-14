@@ -6,11 +6,7 @@
 }:
 
 {
-  catppuccin = {
-    cursors.enable = true;
-    mako.enable = true;
-    waybar.enable = true;
-  };
+  catppuccin.cursors.enable = true;
 
   xdg.portal = {
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
