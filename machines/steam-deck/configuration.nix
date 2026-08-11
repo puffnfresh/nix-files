@@ -111,7 +111,7 @@
       pkgs.jq
       pkgs.moonlight-qt
       pkgs.pass
-      pkgs.silver-searcher
+      pkgs.ripgrep
       pkgs.thunderbird
       pkgs.tmux
       (pkgs.vscode-with-extensions.override {
