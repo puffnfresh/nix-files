@@ -21,6 +21,11 @@
             database_type = "psycopg2";
             no_tls = true;
 
+            media_retention = {
+              local_media_lifetime = "180d";
+              remote_media_lifetime = "30d";
+            };
+
             retention = {
               enabled = true;
               default_policy.max_lifetime = "180d";

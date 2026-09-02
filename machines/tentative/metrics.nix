@@ -40,7 +40,7 @@
             outputs.influxdb = { };
             processors.starlark = [
               {
-                source = ''
+                script = pkgs.writeText "battery-cells.star" ''
                   def apply(metric):
                       # Only touch battery metrics
                       if metric.name != "battery":
@@ -97,7 +97,6 @@
           enable = true;
         };
         services.unpoller = {
-          enable = true;
           prometheus.disable = true;
           unifi.controllers = [
             {

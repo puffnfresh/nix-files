@@ -18,6 +18,7 @@
       ./unifi.nix
       ./web.nix
 
+      ./thread.nix
       ./sip.nix
 
       # https://github.com/kazcw/phoe.nix

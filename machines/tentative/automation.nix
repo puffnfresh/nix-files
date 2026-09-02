@@ -24,9 +24,11 @@
             "brother"
             "unifi"
             "forecast_solar"
-          ];
-          customComponents = [
-            pkgs.home-assistant-custom-components.yoto_ha
+            "otbr"
+            "thread"
+            "matter"
+            "yoto"
+            "influxdb"
           ];
           config = {
             homeassistant = {
@@ -35,6 +37,45 @@
               time_zone = "Australia/Hobart";
             };
             default_config = {};
+            automation = [
+              {
+                alias = "office-light-occupancy";
+                mode = "single";
+                actions = [
+                  {
+                    action = "light.turn_on";
+                    target.area_id = "office";
+                  }
+                ];
+                triggers = [
+                  {
+                    options.behavior = "each";
+                    target.device_id = "886f2419fda689a2a488a55662014655";
+                    trigger = "occupancy.detected";
+                  }
+                ];
+              }
+              {
+                alias = "office-light-cleared";
+                mode = "restart";
+                actions = [
+                  {
+                    action = "light.turn_off";
+                    target.area_id = "office";
+                  }
+                ];
+                triggers = [
+                  {
+                    trigger = "occupancy.cleared";
+                    target.entity_id = "binary_sensor.myggspray_wrlss_mtn_sensor_occupancy";
+                    options = {
+                      behavior = "each";
+                      for.hours = 1;
+                    };
+                  }
+                ];
+              }
+            ];
             rest = [
               {
                 resource = "http://192.168.1.13/api/status";
@@ -175,18 +216,6 @@
             ];
           };
         };
-
-        services.open-webui = {
-          enable = true;
-          port = 19931;
-          environment = {
-            OLLAMA_API_BASE_URL = "http://192.168.1.204:11434";
-            VECTOR_DB = "qdrant";
-            QDRANT_URI = "http://127.0.0.1:6333";
-          };
-        };
-        services.qdrant.enable = true;
-
 
         system.stateVersion = "25.05";
       };
