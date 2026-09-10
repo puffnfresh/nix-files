@@ -13,6 +13,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   nix.settings = {
     auto-optimise-store = true;
     connect-timeout = 5;
@@ -64,6 +66,7 @@
 
   services.pipewire = {
     enable = true;
+    alsa.enable = true;
     pulse.enable = true;
     jack.enable = true;
   };
@@ -86,6 +89,7 @@
       "libvirtd"
       "docker"
       "networkmanager"
+      "video"
     ];
     shell = pkgs.zsh;
   };
@@ -101,11 +105,23 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-rocm;
-    rocmOverrideGfx = "11.5.0";
-    environmentVariables.OLLAMA_CONTEXT_LENGTH = builtins.toString (32 * 1024);
+    package = pkgs.ollama-vulkan;
+    environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = builtins.toString (256 * 1024);
+      OLLAMA_IGPU_ENABLE = "1";
+    };
     host = "0.0.0.0";
     openFirewall = true;
+  };
+  hardware.amd-npu = {
+    enable = true;
+    enableImageGen = false;
+    enableROCm = true;
+    gpuMemory = {
+      ttmSizeGiB = 80;
+      pagePoolSizeGiB = 40;
+    };
+    lemonade.user = "bmckenna";
   };
 
   system.stateVersion = "23.11";

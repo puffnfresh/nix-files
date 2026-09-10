@@ -5,9 +5,12 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
-    niri.url = "github:sodiboo/niri-flake";
+    # niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:bugeats/niri-flake/update-libdisplay-info";
     niri.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-amd-ai.url = "github:noamsto/nix-amd-ai";
+    nix-amd-ai.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +24,7 @@
       catppuccin,
       niri,
       nixos-hardware,
+      nix-amd-ai,
       nix-index-database,
     }:
     rec {
@@ -33,6 +37,7 @@
             # flake-programs-sqlite.nixosModules.programs-sqlite
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.framework-amd-ai-300-series
+            nix-amd-ai.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;

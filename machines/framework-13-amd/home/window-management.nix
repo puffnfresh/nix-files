@@ -38,7 +38,6 @@
           x = 1920;
           y = 0;
         };
-        transform.rotation = 90;
       };
       layout.focus-ring = {
         active.color = "#f38ba8";
