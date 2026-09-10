@@ -15,7 +15,6 @@
 
         services.commafeed = {
           enable = true;
-          package = pkgs.callPackage ./commafeed.nix { };
           environment.CF_APP_PUBLICURL = "https://reader.home.brianmckenna.org";
         };
         services.karakeep = {
